@@ -1,17 +1,13 @@
-.nav-container {
+.tc-nav-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 1.5rem;
   border-bottom: 2px solid #e0e0e0;
 
-  .nav-link-list-desk {
+  .tc-nav-link-list-desk {
     display: none;
   }
-
-//   li {
-//     opacity: 60%;
-//   }
 
   a {
     text-decoration: none;
@@ -19,7 +15,7 @@
   }
 
   @media only screen and (min-width: 768px) {
-    .nav-link-list-desk {
+    .tc-nav-link-list-desk {
       list-style: none;
       padding-left: 0;
       display: flex;
@@ -30,12 +26,12 @@
 }
 
 @media only screen and (min-width: 768px) {
-  .nav-container {
+  .tc-nav-container {
     padding: 1rem 5rem;
   }
 }
 
-.nav-link-list {
+.tc-nav-link-list {
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -68,17 +64,17 @@
   }
 }
 
-.nav-icon {
+.tc-nav-icon {
   max-width: 24px;
 }
 
 @media only screen and (min-width: 768px) {
-  .nav-link-list {
+  .tc-nav-link-list {
     display: none;
   }
 }
 
-.nav-active {
+.tc-nav-active {
   opacity: 100%;
   text-decoration: underline;
 }
