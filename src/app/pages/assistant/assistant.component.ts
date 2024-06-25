@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-assistant',
+  selector: 'tc-assistant',
   templateUrl: './assistant.component.html',
-  styleUrls: ['./assistant.component.scss']
+  styleUrls: ['./assistant.component.scss'],
 })
-export class AssistantComponent {
-
-}
+export class AssistantComponent {}
