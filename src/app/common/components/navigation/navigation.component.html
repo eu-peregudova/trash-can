@@ -1,37 +1,36 @@
-<nav class="nav-container">
-  <app-logo></app-logo>
-  <ul class="nav-link-list-desk">
-    <li routerLinkActive="nav-active">
-        <a [routerLink]="['/tasks']" >List</a>
+<nav class="tc-nav-container">
+  <tc-logo></tc-logo>
+  <ul class="tc-nav-link-list-desk">
+    <li routerLinkActive="tc-nav-active">
+      <a [routerLink]="['/tasks']">List</a>
     </li>
-    <li routerLinkActive="nav-active">
+    <li routerLinkActive="tc-nav-active">
       <a [routerLink]="['/assistant']">Chat with AI</a>
     </li>
-    <li routerLinkActive="nav-active">
+    <li routerLinkActive="tc-nav-active">
       <a [routerLink]="['/stats']">Statistics</a>
     </li>
   </ul>
-  <!-- <profile></profile> -->
   <div>PROF</div>
 </nav>
 
-<nav class="nav-link-list">
+<nav class="tc-nav-link-list">
   <ul>
-    <li routerLinkActive="nav-active">
+    <li routerLinkActive="tc-nav-active">
       <a [routerLink]="['/search']">
-        <img class="nav-icon" src="../../../../assets/Search.svg" />
+        <img class="tc-nav-icon" src="../../../../assets/Search.svg" />
         Search
       </a>
     </li>
-    <li routerLinkActive="nav-active">
+    <li routerLinkActive="tc-nav-active">
       <a [routerLink]="['/tasks']">
-        <img class="nav-icon" src="../../../../assets/task-list.svg" />
+        <img class="tc-nav-icon" src="../../../../assets/task-list.svg" />
         All tasks</a
       >
     </li>
-    <li routerLinkActive="nav-active">
+    <li routerLinkActive="tc-nav-active">
       <a [routerLink]="['/assistant']">
-        <img class="nav-icon" src="../../../../assets/ai-chat.svg" />
+        <img class="tc-nav-icon" src="../../../../assets/ai-chat.svg" />
         AI</a
       >
     </li>

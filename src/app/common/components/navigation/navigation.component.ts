@@ -3,12 +3,10 @@ import { LogoComponent } from './logo/logo.component';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-navigation',
+  selector: 'tc-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
   standalone: true,
-  imports: [LogoComponent, RouterModule]
+  imports: [LogoComponent, RouterModule],
 })
-export class NavigationComponent {
-
-}
+export class NavigationComponent {}
