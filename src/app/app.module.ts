@@ -5,10 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RouterLink, RouterModule } from '@angular/router';
 import { NavigationComponent } from './common/components/navigation/navigation.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, RouterModule, NavigationComponent],
+  imports: [BrowserModule, AppRoutingModule, RouterModule, NavigationComponent, HttpClientModule],
   providers: [RouterLink],
   bootstrap: [AppComponent],
 })
