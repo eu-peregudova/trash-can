@@ -1,34 +1,32 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { TaskService } from 'src/app/common/services/task.service';
-import { Task } from 'src/app/models/task';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { TaskService } from '../../../common/services/task.service';
+import { Task } from '../../../models/task.model';
 
 @Component({
   selector: 'tc-tasks',
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.scss'],
 })
-export class TasksComponent implements OnInit {
-  tasks: Task[] = [];
+export class TasksComponent {
+  tasks$!: Observable<Task[]>;
 
-  constructor(private taskService: TaskService) {}
-
-  ngOnInit(): void {
+  constructor(private taskService: TaskService) {
     this.getTasks();
   }
-
-  getTasks(): void {
-    this.taskService.getTasks('1').subscribe((tasks) => {
-      this.tasks = tasks.filter((t) => t.resolveDate === null);
-    });
+  
+  private getTasks(): void {
+    this.tasks$ = this.taskService.getTasks('1');
   }
 
-  onTaskResolved(taskId: string): void {
-    const task = this.tasks.find((t) => t.taskId === taskId);
-    if (task) {
-      task.resolveDate = new Date().toISOString();
-      this.taskService.updateTask('1', task).subscribe(() => {
-        this.getTasks();
-      });
-    }
+  trackByTaskId(i: number, task: Task) {
+    return task.taskId
+  }
+
+  onTaskResolved(task: Task): void {
+    task.resolveTask();
+    this.taskService.resolveTask('1', task).subscribe(() => {
+      this.getTasks();
+    });
   }
 }
