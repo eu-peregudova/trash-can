@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Task } from 'src/app/models/task';
+import { Observable, map } from 'rxjs';
+import { Task } from '../../models/task.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,10 +11,22 @@ export class TaskService {
   constructor(private http: HttpClient) {}
 
   getTasks(userId: string): Observable<Task[]> {
-    return this.http.get<Task[]>(this.apiUrl + 'tasks/' + userId);
+    return this.http
+      .get<Task[]>(this.apiUrl + 'tasks/' + userId)
+      .pipe(
+        map((tasks) => tasks.map((task) => Task.createNewFromObject(task))),
+      );
+  }
+
+  resolveTask(userId: string, task: Task): Observable<Task> {
+    return this.http
+      .put<Task>(this.apiUrl + 'tasks/' + userId, task)
+      .pipe(map((updatedTask) => Task.createNewFromObject(updatedTask)));
   }
 
   updateTask(userId: string, task: Task): Observable<Task> {
-    return this.http.put<Task>(this.apiUrl + 'tasks/' + userId, task)
+    return this.http
+      .put<Task>(this.apiUrl + 'tasks/' + userId, task)
+      .pipe(map((updatedTask) => Task.createNewFromObject(updatedTask)));
   }
 }

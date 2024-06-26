@@ -1,17 +1,17 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Task } from 'src/app/models/task';
+import { Task } from '../../../models/task.model';
 
 @Component({
-  selector: 'tc-task-card',
+  selector: 'tc-task-card[task]',
   templateUrl: './task-card.component.html',
   styleUrls: ['./task-card.component.scss'],
 })
 export class TaskCardComponent {
   @Input()
   task!: Task;
-  @Output() resolve = new EventEmitter<string>(); 
+  @Output() resolve = new EventEmitter<Task>(); 
 
-  onResolve() {
-    this.resolve.emit(this.task.taskId); 
+  resolveEvent() {
+    this.resolve.emit(this.task); 
   }
 }
