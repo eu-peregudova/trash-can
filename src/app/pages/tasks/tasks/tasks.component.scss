@@ -1,0 +1,15 @@
+.tc-task-container {
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-flow: wrap;
+  width: 100%;
+  gap: 1rem;
+}
+
+@media only screen and (min-width: 768px) {
+    .tc-task-container {
+        padding: 1rem 5rem;
+        flex-direction: row;
+  }
+}
