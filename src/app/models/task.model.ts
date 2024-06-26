@@ -4,35 +4,31 @@ export enum TaskPriority {
   MaybeNever = 'maybe never',
 }
 
+export enum TaskStatus {
+  Created = 'created',
+  Resolved = 'resolved',
+  Rejected = 'rejected',
+}
+
 export class Task {
-  constructor(
-    public taskId: string,
-    public description: string,
-    public creationDate: string,
-    public resolveDate: string | null,
-    public rejectDate: string | null,
-    public priority: TaskPriority,
-  ) {}
+  public taskId: string;
+  public description: string;
+  public creationDate: string;
+  public status: TaskStatus;
+  public updateDate: string;
+  public priority: TaskPriority;
 
   resolveTask() {
-    this.resolveDate = new Date().toISOString();
+    this.status = TaskStatus.Resolved;
+    this.updateDate = new Date().toISOString();
   }
 
-  static createNewFromObject(task: {
-    taskId: string;
-    description: string;
-    creationDate: string;
-    resolveDate: string | null;
-    rejectDate: string | null;
-    priority: TaskPriority;
-  }) {
-    return new Task(
-      task.taskId,
-      task.description,
-      task.creationDate,
-      task.resolveDate,
-      task.rejectDate,
-      task.priority,
-    );
+  static fromJSON(json: any): Task {
+    if (!json) {
+      return undefined;
+    }
+    const newTask = new Task();
+    Object.assign(newTask, json);
+    return newTask;
   }
 }

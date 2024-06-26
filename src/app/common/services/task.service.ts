@@ -14,19 +14,13 @@ export class TaskService {
     return this.http
       .get<Task[]>(this.apiUrl + 'tasks/' + userId)
       .pipe(
-        map((tasks) => tasks.map((task) => Task.createNewFromObject(task))),
+        map((tasks) => tasks.map((task) => Task.fromJSON(task))),
       );
-  }
-
-  resolveTask(userId: string, task: Task): Observable<Task> {
-    return this.http
-      .put<Task>(this.apiUrl + 'tasks/' + userId, task)
-      .pipe(map((updatedTask) => Task.createNewFromObject(updatedTask)));
   }
 
   updateTask(userId: string, task: Task): Observable<Task> {
     return this.http
       .put<Task>(this.apiUrl + 'tasks/' + userId, task)
-      .pipe(map((updatedTask) => Task.createNewFromObject(updatedTask)));
+      .pipe(map((updatedTask) => Task.fromJSON(updatedTask)));
   }
 }
