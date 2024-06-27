@@ -24,7 +24,7 @@
           />
           <label
             class="tag"
-            [class.selected]="taskForm.get('priority')?.value === option"
+            [class.selected]="isOptionSelected(option)"
             [for]="option"
           >
             {{ option }}
