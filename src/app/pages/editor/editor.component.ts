@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Task, TaskPriority } from '../../models/task.model';
-import { TaskService } from '../../common/services/task.service';
 import { Router } from '@angular/router';
+
+import { TaskService } from '../../common/services/task.service';
+import { Task, TaskPriority } from '../../models/task.model';
 
 @Component({
   selector: 'tc-editor',
@@ -16,7 +17,7 @@ export class EditorComponent {
   constructor(
     private fb: FormBuilder,
     private taskService: TaskService,
-    private router: Router,
+    private router: Router
   ) {
     this.taskForm = this.fb.group({
       description: ['', Validators.required],

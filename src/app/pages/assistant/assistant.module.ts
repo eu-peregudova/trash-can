@@ -1,7 +1,8 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AssistantComponent } from './assistant.component';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
+import { AssistantComponent } from './assistant.component';
 
 const routes: Routes = [
   {

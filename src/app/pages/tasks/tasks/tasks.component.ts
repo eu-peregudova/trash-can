@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+
 import { TaskService } from '../../../common/services/task.service';
 import { Task } from '../../../models/task.model';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'tc-tasks',
@@ -14,7 +15,7 @@ export class TasksComponent {
 
   constructor(
     private taskService: TaskService,
-    private router: Router,
+    private router: Router
   ) {
     this.getTasks();
   }
