@@ -25,10 +25,14 @@ export class EditorComponent {
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     const task = Task.fromJSON(this.taskForm.value);
     this.taskService.createTask(task).subscribe(() => {
       this.router.navigate(['/']);
     });
+  }
+
+  isOptionSelected(option: string): boolean {
+    return this.taskForm.get('priority')?.value === option;
   }
 }
