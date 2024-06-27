@@ -1,3 +1,14 @@
-<div class="tc-task-container">
-  <tc-task-card *ngFor="let task of (tasks$ | async); trackBy: trackByTaskId" [task]="task" (resolve)="onTaskResolved($event)"></tc-task-card>
-</div>
+<section class="tc-tasks-page-main">
+  <div class="tc-tasks-container">
+    <tc-task-card
+      *ngFor="let task of tasks$ | async; trackBy: trackByTaskId"
+      [task]="task"
+      (resolve)="onTaskResolved($event)"
+    ></tc-task-card>
+  </div>
+  <div class="tc-button-container">
+    <button class="tc-tasks-add-new-bt" (click)="onAddTask()">
+      + Add new task
+    </button>
+  </div>
+</section>

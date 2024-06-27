@@ -1,0 +1,154 @@
+.tc-editor-page {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1rem;
+
+  .tc-editor-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+
+    .tc-editor-input-wrapper {
+      display: flex;
+      flex-direction: column;
+
+      .tc-form-title {
+        font-weight: 500;
+        padding: 0.5rem 0;
+        font-size: 1.1rem;
+      }
+
+      .tc-form-descriptor {
+        font-weight: 300;
+        line-height: 150%;
+        color: #828282;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+
+      > input {
+        padding: 0.4rem;
+        color: #828282;
+        font-weight: 400;
+      }
+
+      .tc-editor-textarea {
+        height: 7rem;
+        padding: 0.5rem;
+        resize: none;
+      }
+
+      .tc-editor-textarea::placeholder {
+        color: #828282;
+        font-weight: 400;
+      }
+
+      .tc-editor-textarea,
+      input {
+        border: 1px solid #e0e0e0;
+        border-radius: 0.5rem;
+      }
+    }
+  }
+
+  @media only screen and (min-width: 768px) {
+    .tc-editor-form {
+      max-width: 30rem;
+      border: #e0e0e0 1px solid;
+      border-radius: 1rem;
+      padding: 4rem 5rem;
+      min-width: 700px;
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .tc-editor-page {
+    justify-content: center;
+    height: 90vh;
+    padding: initial;
+  }
+}
+
+.tc-editor-input-radio {
+  .tc-editor-input-radio-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  @media only screen and (min-width: 768px) {
+    .tc-editor-input-radio-options {
+      flex-direction: row;
+    }
+  }
+
+  .tag {
+    border-radius: 0.5rem;
+    border: #e0e0e0 1px solid;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #828282;
+    font-weight: 400;
+    font-size: 0.9rem;
+    padding: 0.5rem 0;
+    text-align: center;
+    flex-grow: 1;
+  }
+
+  .tag.selected {
+    background-color: #000000;
+    color: white;
+  }
+
+  input[type="radio"] {
+    display: none;
+  }
+
+  .tc-editor-input-radio {
+    display: flex;
+    gap: 0.3rem;
+  }
+}
+
+.tc-editor-button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+
+  .tc-editor-button {
+    background-color: #e0e0e0;
+    border-radius: 0.5rem;
+    border: none;
+    padding: 0.8rem 3rem;
+    font-weight: 500;
+    font-size: 1.1rem;
+  }
+
+  .tc-editor-button-submit {
+    background-color: #000000;
+    color: #fff;
+  }
+
+  .tc-editor-button:hover {
+    cursor: pointer;
+  }
+
+  .tc-editor-button-submit:disabled {
+    cursor: not-allowed;
+    background-color: #828282;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .tc-editor-button-container {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+}

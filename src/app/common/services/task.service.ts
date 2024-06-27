@@ -10,17 +10,21 @@ export class TaskService {
   private apiUrl = 'http://localhost:3000/';
   constructor(private http: HttpClient) {}
 
-  getTasks(userId: string): Observable<Task[]> {
+  getTasks(): Observable<Task[]> {
     return this.http
-      .get<Task[]>(this.apiUrl + 'tasks/' + userId)
-      .pipe(
-        map((tasks) => tasks.map(Task.fromJSON)),
-      );
+      .get<Task[]>(`${this.apiUrl}tasks`)
+      .pipe(map((tasks) => tasks.map(Task.fromJSON)));
   }
 
-  updateTask(userId: string, task: Task): Observable<Task> {
+  updateTask(task: Task): Observable<Task> {
     return this.http
-      .put<Task>(this.apiUrl + 'tasks/' + userId, task)
+      .put<Task[]>(`${this.apiUrl}tasks`, task)
+      .pipe(map(Task.fromJSON));
+  }
+
+  createTask(task: Task): Observable<Task> {
+    return this.http
+      .post<Task[]>(`${this.apiUrl}tasks`, task)
       .pipe(map(Task.fromJSON));
   }
 }
