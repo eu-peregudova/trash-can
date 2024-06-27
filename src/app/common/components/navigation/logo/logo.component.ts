@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
   templateUrl: './logo.component.html',
   styleUrls: ['./logo.component.scss'],
   standalone: true,
-  imports: [RouterModule]
+  imports: [RouterModule],
 })
-export class LogoComponent {
-}
+export class LogoComponent {}

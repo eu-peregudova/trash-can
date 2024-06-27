@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+
 import { Task } from '../../../models/task.model';
 
 @Component({
@@ -9,9 +10,9 @@ import { Task } from '../../../models/task.model';
 export class TaskCardComponent {
   @Input()
   task!: Task;
-  @Output() resolve = new EventEmitter<Task>(); 
+  @Output() resolve = new EventEmitter<Task>();
 
   resolveEvent() {
-    this.resolve.emit(this.task); 
+    this.resolve.emit(this.task);
   }
 }
