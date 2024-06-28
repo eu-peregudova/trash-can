@@ -9,20 +9,15 @@ const routes: Routes = [
   },
   {
     path: 'tasks',
-    loadChildren: () =>
-      import('./pages/tasks/tasks.module').then((m) => m.TasksModule),
+    loadChildren: () => import('./pages/tasks/tasks.module').then((m) => m.TasksModule),
   },
   {
     path: 'assistant',
-    loadChildren: () =>
-      import('./pages/assistant/assistant.module').then(
-        (m) => m.AssistantModule,
-      ),
+    loadChildren: () => import('./pages/assistant/assistant.module').then((m) => m.AssistantModule),
   },
   {
     path: 'editor',
-    loadChildren: () =>
-      import('./pages/editor/editor.module').then((m) => m.EditorModule),
+    loadChildren: () => import('./pages/editor/editor.module').then((m) => m.EditorModule),
   },
 ];
 

@@ -1,10 +1,3 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { RouterLink, RouterModule } from '@angular/router';
-import { NavigationComponent } from './common/components/navigation/navigation.component';
 import {
   HTTP_INTERCEPTORS,
   HttpClientModule,
@@ -13,26 +6,24 @@ import {
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterLink, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
+
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { NavigationComponent } from './common/components/navigation/navigation.component';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    RouterModule,
-    NavigationComponent,
-    HttpClientModule,
-  ],
+  imports: [BrowserModule, AppRoutingModule, RouterModule, NavigationComponent, HttpClientModule],
   providers: [
     RouterLink,
     {
       provide: HTTP_INTERCEPTORS,
       useFactory: (): HttpInterceptor => ({
-        intercept(
-          req: HttpRequest<any>,
-          next: HttpHandler,
-        ): Observable<HttpEvent<any>> {
+        intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
           const clonedRequest = req.clone({
             setHeaders: {
               'user-id': '1',
