@@ -7,7 +7,6 @@ import { Message } from '../../models/message.model';
   providedIn: 'root',
 })
 export class MessageService {
-  // eslint-disable-next-line prettier/prettier
   messagesSubject: BehaviorSubject<Message[]> = new BehaviorSubject<Message[]>([]);
   messages$ = this.messagesSubject.asObservable();
 
