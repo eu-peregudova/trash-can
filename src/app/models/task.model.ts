@@ -17,6 +17,7 @@ export class Task {
   public status: TaskStatus;
   public updateDate: string;
   public priority: TaskPriority;
+  public expirationDate: string;
 
   resolveTask() {
     this.status = TaskStatus.Resolved;

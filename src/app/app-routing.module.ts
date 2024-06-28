@@ -19,6 +19,11 @@ const routes: Routes = [
         (m) => m.AssistantModule,
       ),
   },
+  {
+    path: 'editor',
+    loadChildren: () =>
+      import('./pages/editor/editor.module').then((m) => m.EditorModule),
+  },
 ];
 
 @NgModule({

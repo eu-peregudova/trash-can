@@ -1,0 +1,59 @@
+<div class="tc-editor-page">
+  <form class="tc-editor-form" [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+    <div class="tc-editor-input-wrapper">
+      <label class="tc-form-title" for="description"
+        >What do you want to do?
+      </label>
+      <textarea
+        class="tc-editor-textarea"
+        type="text"
+        id="description"
+        formControlName="description"
+        placeholder="Buy shoes for running..."
+      ></textarea>
+    </div>
+    <div class="tc-editor-input-wrapper tc-editor-input-radio">
+      <label class="tc-form-title">Priority</label>
+      <div class="tc-editor-input-radio-options">
+        <ng-container *ngFor="let option of optionsPriority">
+          <input
+            type="radio"
+            formControlName="priority"
+            [value]="option"
+            id="{{ option }}"
+          />
+          <label
+            class="tag"
+            [class.selected]="isOptionSelected(option)"
+            [for]="option"
+          >
+            {{ option }}
+          </label>
+        </ng-container>
+      </div>
+    </div>
+    <div class="tc-editor-input-wrapper">
+      <label class="tc-form-title" for="expirationDate">Expiration date </label>
+      <p class="tc-form-descriptor">
+        On this date task will silently discard itself. Think about when it
+        would not matter anymore.
+      </p>
+      <input
+        type="date"
+        id="expirationDate"
+        formControlName="expirationDate"
+        placeholder="Date"
+      />
+    </div>
+    <div class="tc-editor-button-container">
+      <button type="button" class="tc-editor-button">Cancel</button>
+      <button
+        type="submit"
+        class="tc-editor-button tc-editor-button-submit"
+        [disabled]="taskForm.invalid"
+      >
+        Add Task
+      </button>
+    </div>
+  </form>
+</div>

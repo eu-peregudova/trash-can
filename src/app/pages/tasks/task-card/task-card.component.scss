@@ -3,6 +3,7 @@
   border-radius: 0.5rem;
   padding: 1rem;
   color: #828282;
+  min-width: 100%;
 
   display: grid;
   grid-template-columns: 5fr 1fr;
@@ -44,11 +45,19 @@
     color: inherit;
   }
 
-  .tc-bt-i-did-it:hover, .tc-bt-i-did-it:focus, .tc-bt-i-did-it:active {
+  .tc-bt-i-did-it:hover,
+  .tc-bt-i-did-it:focus,
+  .tc-bt-i-did-it:active {
     transition: ease-in 0.3s;
     color: black;
     border-color: black;
     cursor: pointer;
     background-color: #82828213;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .tc-card {
+    width: initial;
   }
 }
