@@ -24,7 +24,7 @@ export class TasksComponent {
     this.tasks$ = this.taskService.getTasks();
   }
 
-  trackByTaskId(i: number, task: Task) {
+  trackByTaskId(i: number, task: Task): string {
     return task.taskId;
   }
 
@@ -35,7 +35,7 @@ export class TasksComponent {
     });
   }
 
-  onAddTask() {
+  onAddTask(): void {
     this.router.navigate(['/editor']);
   }
 }

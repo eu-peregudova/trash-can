@@ -23,7 +23,7 @@ import { NavigationComponent } from './common/components/navigation/navigation.c
     {
       provide: HTTP_INTERCEPTORS,
       useFactory: (): HttpInterceptor => ({
-        intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
           const clonedRequest = req.clone({
             setHeaders: {
               'user-id': '1',
