@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { AssistantService } from '../../common/services/assistant.service';
@@ -14,6 +14,8 @@ export class AssistantComponent {
   inputValue = '';
   messages: Observable<Message[]>;
 
+  @ViewChild('inputMessage') inputMessage: ElementRef;
+
   constructor(
     private assistantService: AssistantService,
     private messageService: MessageService
@@ -22,16 +24,28 @@ export class AssistantComponent {
   }
 
   onInput(): void {
-    if (this.inputValue) {
-      this.messageService.addNewMessage({ content: this.inputValue, role: 'user' });
-      this.assistantService.getSuggestion(this.messageService.getHistory()).subscribe((message) => {
-        this.messageService.addNewMessage({ content: message, role: 'assistant' });
-      });
+    if (this.inputValue.trim()) {
+      this.sendMessage({ content: this.inputValue.trim(), role: 'user' });
       this.inputValue = '';
     }
   }
 
   trackByMessage(i: number): number {
     return i;
+  }
+
+  onFastButton(prompt: string): void {
+    this.sendMessage({ content: prompt, role: 'user' });
+  }
+
+  onFastType(): void {
+    this.inputMessage.nativeElement.focus();
+  }
+
+  sendMessage(message: Message): void {
+    this.messageService.addNewMessage(message);
+    this.assistantService.getSuggestion(this.messageService.getHistory()).subscribe((message) => {
+      this.messageService.addNewMessage({ content: message, role: 'assistant' });
+    });
   }
 }
