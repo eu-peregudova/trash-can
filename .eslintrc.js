@@ -6,6 +6,7 @@ module.exports = {
   },
   plugins: ['unused-imports', 'simple-import-sort', 'import'],
   rules: {
+    "@typescript-eslint/explicit-function-return-type": "error",
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
     'import/first': 'error',

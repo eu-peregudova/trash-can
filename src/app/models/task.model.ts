@@ -19,12 +19,12 @@ export class Task {
   public priority: TaskPriority;
   public expirationDate: string;
 
-  resolveTask() {
+  resolveTask(): void {
     this.status = TaskStatus.Resolved;
     this.updateDate = new Date().toISOString();
   }
 
-  static fromJSON(json: any): Task {
+  static fromJSON(json: unknown): Task {
     if (!json) {
       return undefined;
     }

@@ -12,7 +12,7 @@ export class TaskCardComponent {
   task!: Task;
   @Output() resolve = new EventEmitter<Task>();
 
-  resolveEvent() {
+  resolveEvent(): void {
     this.resolve.emit(this.task);
   }
 }
