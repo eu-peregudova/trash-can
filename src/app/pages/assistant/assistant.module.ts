@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AssistantComponent } from './assistant.component';
+import { FastPromptComponent } from './fast-prompt/fast-prompt.component';
 
 const routes: Routes = [
   {
@@ -13,7 +14,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AssistantComponent],
+  declarations: [AssistantComponent, FastPromptComponent],
   imports: [CommonModule, RouterModule.forChild(routes), FormsModule],
 })
 export class AssistantModule {}
