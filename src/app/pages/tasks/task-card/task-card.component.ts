@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Task } from '../../../models/task.model';
 
@@ -8,11 +9,16 @@ import { Task } from '../../../models/task.model';
   styleUrls: ['./task-card.component.scss'],
 })
 export class TaskCardComponent {
-  @Input()
-  task!: Task;
+  @Input() task!: Task;
   @Output() resolve = new EventEmitter<Task>();
+
+  constructor(private router: Router) {}
 
   resolveEvent(): void {
     this.resolve.emit(this.task);
+  }
+
+  onEdit(): void {
+    this.router.navigate(['/editor/', this.task.taskId]);
   }
 }

@@ -10,6 +10,10 @@ const routes: Routes = [
     path: '',
     component: EditorComponent,
   },
+  {
+    path: ':id',
+    component: EditorComponent,
+  },
 ];
 
 @NgModule({
