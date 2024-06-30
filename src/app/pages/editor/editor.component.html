@@ -46,13 +46,23 @@
       />
     </div>
     <div class="tc-editor-button-container">
-      <button type="button" class="tc-editor-button">Cancel</button>
+      <button
+        *ngIf="!isNew"
+        type="button"
+        class="tc-editor-button"
+        (click)="onDelete()"
+      >
+        Delete
+      </button>
+      <button type="button" class="tc-editor-button" (click)="onCancel()">
+        Cancel
+      </button>
       <button
         type="submit"
         class="tc-editor-button tc-editor-button-submit"
         [disabled]="taskForm.invalid"
       >
-        Add Task
+        {{ isNew ? 'Add Task' : 'Update' }}
       </button>
     </div>
   </form>

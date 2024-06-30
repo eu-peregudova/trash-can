@@ -16,11 +16,19 @@ export class TaskService {
     return this.http.get<Task[]>(this.apiUrl).pipe(map((tasks) => tasks.map(Task.fromJSON)));
   }
 
-  updateTask(task: Task): Observable<Task> {
-    return this.http.put<Task[]>(this.apiUrl, task).pipe(map(Task.fromJSON));
+  getTaskById(id: string): Observable<Task> {
+    return this.http.get<Task>(this.apiUrl + `/${id}`).pipe(map(Task.fromJSON));
   }
 
   createTask(task: Task): Observable<Task> {
     return this.http.post<Task[]>(this.apiUrl, task).pipe(map(Task.fromJSON));
+  }
+
+  updateTask(id: string, task: Task): Observable<Task> {
+    return this.http.patch<Task[]>(this.apiUrl + `/${id}`, task).pipe(map(Task.fromJSON));
+  }
+
+  deleteTask(id: string): Observable<void> {
+    return this.http.delete<void>(this.apiUrl + `/${id}`);
   }
 }
