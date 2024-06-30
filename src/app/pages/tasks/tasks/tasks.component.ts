@@ -30,7 +30,7 @@ export class TasksComponent {
 
   onTaskResolved(task: Task): void {
     task.resolveTask();
-    this.taskService.updateTask(task).subscribe(() => {
+    this.taskService.updateTask(task.taskId, task).subscribe(() => {
       this.getTasks();
     });
   }
