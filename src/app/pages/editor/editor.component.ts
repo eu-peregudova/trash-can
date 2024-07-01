@@ -15,7 +15,7 @@ export class EditorComponent implements OnDestroy {
   taskForm: FormGroup;
   optionsPriority = Object.values(TaskPriority);
   task: Task;
-  isNew = true;
+  isNew: boolean = true;
   private ngUnsubscribe$ = new Subject<void>();
 
   constructor(
@@ -35,8 +35,10 @@ export class EditorComponent implements OnDestroy {
       this.isNew = false;
       this.taskService.getTaskById(this.task.taskId).subscribe((task) => {
         this.task = task;
-        this.taskForm.controls['description'].setValue(this.task.description);
-        this.taskForm.controls['priority'].setValue(this.task.priority);
+        this.taskForm.patchValue({
+          description: this.task.description,
+          priority: this.task.priority,
+        });
       });
     }
   }
