@@ -1,16 +1,25 @@
 <div class="tc-assistant-page">
   <div class="tc-assistant-chat-window">
-    <div class="messages">
+    <div class="messages" *ngIf="messages | async as messagesArray">
+      <tc-fast-prompt
+        *ngIf="!messagesArray.length"
+        (fastPromptEvent)="onFastButton($event)"
+        (typeYourselfEvent)="onFastType()"
+      >
+      </tc-fast-prompt>
       <div
         class="message"
-        *ngFor="let message of messages | async; trackBy: trackByMessage"
+        *ngFor="let message of messagesArray; trackBy: trackByMessage"
         [ngClass]="{ 'user': message.role === 'user' }"
       >
         {{ message.content }}
       </div>
+      <!-- <div class="message" [ngClass]="{ 'user': true }">message</div>
+      <div class="message" [ngClass]="{ 'user': false }">other message</div> -->
     </div>
     <form class="tc-assistant-form" (ngSubmit)="onInput()">
       <input
+        #inputMessage
         type="text"
         [(ngModel)]="inputValue"
         name="inputField"

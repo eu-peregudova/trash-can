@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 
 import { TaskService } from '../../common/services/task.service';
 import { Task, TaskPriority } from '../../models/task.model';
@@ -10,9 +11,10 @@ import { Task, TaskPriority } from '../../models/task.model';
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss'],
 })
-export class EditorComponent {
+export class EditorComponent implements OnDestroy {
   taskForm: FormGroup;
   optionsPriority = Object.values(TaskPriority);
+  private ngUnsubscribe$ = new Subject<void>();
 
   constructor(
     private fb: FormBuilder,
@@ -26,11 +28,19 @@ export class EditorComponent {
     });
   }
 
+  ngOnDestroy(): void {
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
+  }
+
   onSubmit(): void {
     const task = Task.fromJSON(this.taskForm.value);
-    this.taskService.createTask(task).subscribe(() => {
-      this.router.navigate(['/']);
-    });
+    this.taskService
+      .createTask(task)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(() => {
+        this.router.navigate(['/']);
+      });
   }
 
   isOptionSelected(option: string): boolean {

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 
 import { TaskService } from '../../../common/services/task.service';
 import { Task } from '../../../models/task.model';
@@ -10,14 +10,20 @@ import { Task } from '../../../models/task.model';
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.scss'],
 })
-export class TasksComponent {
+export class TasksComponent implements OnDestroy {
   tasks$!: Observable<Task[]>;
+  private ngUnsubscribe$ = new Subject<void>();
 
   constructor(
     private taskService: TaskService,
     private router: Router
   ) {
     this.getTasks();
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
   }
 
   private getTasks(): void {
@@ -30,9 +36,12 @@ export class TasksComponent {
 
   onTaskResolved(task: Task): void {
     task.resolveTask();
-    this.taskService.updateTask(task).subscribe(() => {
-      this.getTasks();
-    });
+    this.taskService
+      .updateTask(task)
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(() => {
+        this.getTasks();
+      });
   }
 
   onAddTask(): void {

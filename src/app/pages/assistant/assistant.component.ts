@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { Observable, Subject, takeUntil } from 'rxjs';
 
 import { AssistantService } from '../../common/services/assistant.service';
 import { MessageService } from '../../common/services/message.service';
@@ -10,9 +10,12 @@ import { Message } from '../../models/message.model';
   templateUrl: './assistant.component.html',
   styleUrls: ['./assistant.component.scss'],
 })
-export class AssistantComponent {
+export class AssistantComponent implements OnDestroy {
   inputValue = '';
   messages: Observable<Message[]>;
+  private ngUnsubscribe$ = new Subject<void>();
+
+  @ViewChild('inputMessage') inputMessage: ElementRef;
 
   constructor(
     private assistantService: AssistantService,
@@ -21,17 +24,37 @@ export class AssistantComponent {
     this.messages = this.messageService.messages$;
   }
 
-  onInput(): void {
-    if (this.inputValue) {
-      this.messageService.addNewMessage({ content: this.inputValue, role: 'user' });
-      this.assistantService.getSuggestion(this.messageService.getHistory()).subscribe((message) => {
-        this.messageService.addNewMessage({ content: message, role: 'assistant' });
-      });
-      this.inputValue = '';
-    }
+  ngOnDestroy(): void {
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
   }
 
   trackByMessage(i: number): number {
     return i;
+  }
+
+  onInput(): void {
+    if (this.inputValue.trim()) {
+      this.sendMessage({ content: this.inputValue.trim(), role: 'user' });
+      this.inputValue = '';
+    }
+  }
+
+  onFastButton(prompt: string): void {
+    this.sendMessage({ content: prompt, role: 'user' });
+  }
+
+  onFastType(): void {
+    this.inputMessage.nativeElement.focus();
+  }
+
+  sendMessage(message: Message): void {
+    this.messageService.addNewMessage(message);
+    this.assistantService
+      .getSuggestion(this.messageService.getHistory())
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe((message) => {
+        this.messageService.addNewMessage({ content: message, role: 'assistant' });
+      });
   }
 }
