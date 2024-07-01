@@ -28,7 +28,7 @@ export class EditorComponent implements OnDestroy {
     this.task = new Task();
     this.taskForm = this.fb.group({
       description: ['', Validators.required],
-      priority: ['sooner', Validators.required],
+      priority: [TaskPriority.Sooner, Validators.required],
       expirationDate: [''],
     });
     this.task.taskId = route.snapshot.params['id'];
@@ -36,12 +36,8 @@ export class EditorComponent implements OnDestroy {
       this.isNew = false;
       this.taskService.getTaskById(this.task.taskId).subscribe((task) => {
         this.task = task;
-        this.taskForm = this.fb.group({
-          description: [this.task.description, Validators.required],
-          priority: [this.task.priority, Validators.required],
-          expirationDate: [''],
-        });
-        console.log(this.task);
+        this.taskForm.controls['description'].setValue(this.task.description);
+        this.taskForm.controls['priority'].setValue(this.task.priority);
       });
     }
   }
