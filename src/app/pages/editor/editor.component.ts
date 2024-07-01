@@ -23,7 +23,11 @@ export class EditorComponent implements OnDestroy {
     private taskService: TaskService,
     private router: Router,
     private route: ActivatedRoute
+    private router: Router,
+    private route: ActivatedRoute
   ) {
+    console.log(Object.values(TaskPriority));
+    this.task = new Task();
     console.log(Object.values(TaskPriority));
     this.task = new Task();
     this.taskForm = this.fb.group({
@@ -72,6 +76,18 @@ export class EditorComponent implements OnDestroy {
 
   isOptionSelected(option: string): boolean {
     return this.taskForm.get('priority')?.value === option;
+  }
+
+  onCancel(): void {
+    this.router.navigate(['/']);
+  }
+
+  onDelete(): void {
+    this.taskService.deleteTask(this.task.taskId).subscribe({
+      next: () => {
+        this.router.navigate(['/']);
+      },
+    });
   }
 
   onCancel(): void {
