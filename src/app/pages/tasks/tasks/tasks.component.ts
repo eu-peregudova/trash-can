@@ -34,14 +34,8 @@ export class TasksComponent implements OnDestroy {
     return task.taskId;
   }
 
-  onTaskResolved(task: Task): void {
-    task.resolveTask();
-    this.taskService
-      .updateTask(task.taskId, task)
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(() => {
-        this.getTasks();
-      });
+  onTaskResolved(): void {
+    this.getTasks();
   }
 
   onAddTask(): void {

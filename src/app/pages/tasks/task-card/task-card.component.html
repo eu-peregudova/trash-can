@@ -5,10 +5,10 @@
     </button>
   </div>
   <p class="tc-card-text">
-    {{ task.description }}
+    {{ task?.description }}
   </p>
   <div class="tc-card-buttons">
-    <button class="tc-bt-i-did-it" (click)="resolveEvent()">
+    <button [disabled]="task.status !== 'created'" class="tc-bt-i-did-it" (click)="resolveEvent()">
       <img src="../../../../assets/icons/i-did-it-mark.svg" />
       I did it
     </button>

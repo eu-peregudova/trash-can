@@ -2,6 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { Location } from '@angular/common';
 
 import { TaskService } from '../../common/services/task.service';
 import { Task, TaskPriority } from '../../models/task.model';
@@ -22,7 +23,8 @@ export class EditorComponent implements OnDestroy {
     private fb: FormBuilder,
     private taskService: TaskService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location
   ) {
     console.log(Object.values(TaskPriority));
     this.task = new Task();
@@ -31,7 +33,7 @@ export class EditorComponent implements OnDestroy {
       priority: [TaskPriority.Sooner, Validators.required],
       expirationDate: [''],
     });
-    this.task.taskId = route.snapshot.params['id'];
+    this.task.taskId = this.route.snapshot.params['id'];
     if (this.task.taskId) {
       this.isNew = false;
       this.taskService.getTaskById(this.task.taskId).subscribe((task) => {
@@ -73,7 +75,7 @@ export class EditorComponent implements OnDestroy {
   }
 
   onCancel(): void {
-    this.router.navigate(['/']);
+    this.location.back();
   }
 
   onDelete(): void {

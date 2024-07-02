@@ -13,7 +13,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [TasksComponent, TaskCardComponent],
-  imports: [CommonModule, RouterModule.forChild(routes)],
+  declarations: [TasksComponent],
+  imports: [CommonModule, TaskCardComponent, RouterModule.forChild(routes)],
+  exports: [],
 })
 export class TasksModule {}

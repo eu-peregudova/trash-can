@@ -9,6 +9,10 @@
   flex-flow: wrap;
   width: 100%;
   gap: 1rem;
+
+  .tc-task {
+    flex-grow: 1;
+  }
 }
 
 @media only screen and (min-width: 768px) {
