@@ -1,19 +1,35 @@
 <div class="tc-assistant-page">
   <div class="tc-assistant-chat-window">
-    <div class="messages" *ngIf="messages | async as messagesArray">
+    <div
+      #messagesContainer
+      class="messages"
+      *ngIf="messages | async as messagesArray"
+    >
       <tc-fast-prompt
         *ngIf="!messagesArray.length"
         (fastPromptEvent)="onFastButton($event)"
         (typeYourselfEvent)="onFastType()"
       >
       </tc-fast-prompt>
+      <!-- <div class="messages-inner"> -->
       <div
-        class="message"
+        class="tc-message-wrap"
         *ngFor="let message of messagesArray; trackBy: trackByMessage"
-        [ngClass]="{ 'user': message.role === 'user' }"
+        [ngClass]="{ 'right': message.role === 'user' }"
       >
-        {{ message.content }}
+        <div class="message" [ngClass]="{ 'user': message.role === 'user' }">
+          {{ parseMessage(message).text }}
+        </div>
+        <div *ngIf="parseMessage(message).tasksPresent" class="tc-card-wrap">
+          <div
+            class="task-message"
+            *ngFor="let id of parseMessage(message).tasks; trackBy: trackById"
+          >
+            <tc-task-card-for-chat [taskId]="id"></tc-task-card-for-chat>
+          </div>
+        </div>
       </div>
+      <!-- </div> -->
       <!-- <div class="message" [ngClass]="{ 'user': true }">message</div>
       <div class="message" [ngClass]="{ 'user': false }">other message</div> -->
     </div>

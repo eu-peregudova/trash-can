@@ -1,9 +1,10 @@
 <section class="tc-tasks-page-main">
   <div class="tc-tasks-container">
     <tc-task-card
+      class="tc-task"
       *ngFor="let task of tasks$ | async; trackBy: trackByTaskId"
       [task]="task"
-      (resolve)="onTaskResolved($event)"
+      (resolve)="onTaskResolved()"
     ></tc-task-card>
   </div>
   <div class="tc-button-container">

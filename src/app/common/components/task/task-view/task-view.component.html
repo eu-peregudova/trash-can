@@ -1,14 +1,18 @@
 <div class="tc-card">
   <div class="tc-card-edit">
-    <button class="tc-card-edit-button" (click)="onEdit()">
+    <button class="tc-card-edit-button" (click)="editEvent()">
       <img src="../../../../assets/icons/pajamas_pencil.svg" />
     </button>
   </div>
   <p class="tc-card-text">
-    {{ task.description }}
+    {{ task?.description }}
   </p>
   <div class="tc-card-buttons">
-    <button class="tc-bt-i-did-it" (click)="resolveEvent()">
+    <button
+      [disabled]="task?.status !== 'created'"
+      class="tc-bt-i-did-it"
+      (click)="resolveEvent()"
+    >
       <img src="../../../../assets/icons/i-did-it-mark.svg" />
       I did it
     </button>
