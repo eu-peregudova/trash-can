@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
 import { environment } from '../../../environments/enviroment';
-import { Task } from '../../models/task.model';
+import { Sort } from '../../models/sort.model';
+import { Task, TaskStatus } from '../../models/task.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +13,18 @@ export class TaskService {
   private apiUrl = `${environment.apiBaseUrl}tasks`;
   constructor(private http: HttpClient) {}
 
-  getTasks(): Observable<Task[]> {
-    return this.http.get<Task[]>(this.apiUrl).pipe(map((tasks) => tasks.map(Task.fromJSON)));
+  getTasks(search?: string, filter: TaskStatus = TaskStatus.Created, sort?: Sort): Observable<Task[]> {
+    const params = new URLSearchParams();
+    params.append('filter', filter);
+
+    if (sort) {
+      params.append('sort', sort);
+    }
+    if (search) {
+      params.append('search', search);
+    }
+
+    return this.http.get<Task[]>(this.apiUrl + `?${params.toString()}`).pipe(map((tasks) => tasks.map(Task.fromJSON)));
   }
 
   getTaskById(id: string): Observable<Task> {
