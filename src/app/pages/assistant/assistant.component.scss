@@ -2,11 +2,16 @@
   width: 100%;
   height: calc(100vh - 5rem);
   position: relative;
+  overflow-x: visible;
 
   .tc-assistant-chat-window {
     padding: 0 1rem;
     position: relative;
     height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow-x: visible;
   }
 
   .tc-assistant-form {
@@ -17,7 +22,7 @@
     display: flex;
     gap: 0.5rem;
     border-radius: 0.5rem;
-    border: #E0E0E0 1px solid;
+    border: #e0e0e0 1px solid;
     background-color: white;
 
     input {
@@ -31,8 +36,10 @@
     input::placeholder {
       color: #828282;
     }
-    
-    input:active, input:focus, input:focus-visible {
+
+    input:active,
+    input:focus,
+    input:focus-visible {
       outline-offset: 0px;
       outline: none;
     }
@@ -68,23 +75,55 @@
 .messages {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  height: 100%;
   gap: 1rem;
+  overflow-y: auto;
+  overflow-x: visible;
 }
+
+// .messages-inner {
+//   height: 100%;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: flex-end;
+//   gap: 1rem;
+// }
 
 .message {
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
   width: fit-content;
-  background-color: #E9E9EB;
+  background-color: #e9e9eb;
   text-wrap: wrap;
   font-weight: 400;
   max-width: 80%;
 }
 
+.tc-message-wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+}
+
 .user {
   background-color: black;
   color: white;
-  align-self: flex-end;
+}
+
+.right {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.tc-card-wrap {
+  display: flex;
+  flex-direction: column;
+  max-width: 60%;
+  width: fit-content;
+}
+
+.task-message {
+  padding-left: 0.5rem;
+  padding-bottom: 0.8rem;
 }
