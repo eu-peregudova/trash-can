@@ -23,7 +23,7 @@
         <div *ngIf="parseMessage(message).tasksPresent" class="tc-card-wrap">
           <div
             class="task-message"
-            *ngFor="let id of parseMessage(message).tasks"
+            *ngFor="let id of parseMessage(message).tasks; trackBy: trackById"
           >
             <tc-task-card-for-chat [taskId]="id"></tc-task-card-for-chat>
           </div>

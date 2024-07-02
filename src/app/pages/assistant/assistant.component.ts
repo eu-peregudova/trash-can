@@ -1,10 +1,9 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { Observable, Subject, takeUntil } from 'rxjs';
 
 import { AssistantService } from '../../common/services/assistant.service';
 import { MessageService } from '../../common/services/message.service';
 import { Message, ParsedMessage } from '../../models/message.model';
-
 
 @Component({
   selector: 'tc-assistant',
@@ -21,13 +20,12 @@ export class AssistantComponent implements OnDestroy, AfterViewChecked {
 
   constructor(
     private assistantService: AssistantService,
-    private messageService: MessageService,
-    private cdRef: ChangeDetectorRef,
+    private messageService: MessageService
   ) {
     this.messages = this.messageService.messages$;
   }
 
-  ngAfterViewChecked() {
+  ngAfterViewChecked(): void {
     this.scrollToBottom();
   }
 
@@ -39,6 +37,9 @@ export class AssistantComponent implements OnDestroy, AfterViewChecked {
   trackByMessage(i: number): number {
     return i;
   }
+  trackById(i: number, id: string): string {
+    return id;
+  }
 
   onInput(): void {
     if (this.inputValue.trim()) {
@@ -49,7 +50,7 @@ export class AssistantComponent implements OnDestroy, AfterViewChecked {
 
   onFastButton(prompt: string): void {
     this.sendMessage({ content: prompt, role: 'user' });
-    this.scrollToBottom(); 
+    this.scrollToBottom();
   }
 
   onFastType(): void {
@@ -63,7 +64,7 @@ export class AssistantComponent implements OnDestroy, AfterViewChecked {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((message) => {
         this.messageService.addNewMessage({ content: message, role: 'assistant' });
-        this.scrollToBottom(); 
+        this.scrollToBottom();
       });
   }
 
@@ -82,7 +83,7 @@ export class AssistantComponent implements OnDestroy, AfterViewChecked {
         answer.tasks = t.pickedTasksArray;
         answer.tasksPresent = t.pickedTasksArray.length !== 0;
       } catch {
-        answer.text = message.content
+        answer.text = message.content;
       }
     }
     return answer;
@@ -91,8 +92,8 @@ export class AssistantComponent implements OnDestroy, AfterViewChecked {
   private scrollToBottom(): void {
     try {
       this.messagesContainer.nativeElement.scrollTop = this.messagesContainer.nativeElement.scrollHeight;
-    } catch(err) {
-      console.error("Scroll to bottom failed: ", err);
-    }        
+    } catch (err) {
+      console.error('Scroll to bottom failed: ', err);
+    }
   }
 }

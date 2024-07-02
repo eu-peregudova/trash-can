@@ -8,7 +8,7 @@ import { TaskService } from '../../../services/task.service';
 import { TaskViewComponent } from '../task-view/task-view.component';
 
 @Component({
-  selector: 'tc-task-card',
+  selector: 'tc-task-card[task]',
   templateUrl: './task-card.component.html',
   imports: [CommonModule, TaskViewComponent],
   standalone: true,
