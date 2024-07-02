@@ -6,12 +6,12 @@
   min-width: 100%;
 
   display: grid;
-  grid-template-columns: 5fr 1fr;
+  grid-template-columns: 2fr 3fr 1fr;
   grid-template-rows: 2fr 1fr;
   gap: 0px 0px;
   grid-template-areas:
-    "text edit"
-    "buttons buttons";
+    'text text edit'
+    'priority buttons buttons';
 
   .tc-card-edit {
     grid-area: edit;
@@ -32,6 +32,35 @@
     grid-area: text;
   }
 
+  .tc-card-priority {
+    grid-area: priority;
+    align-self: flex-end;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+
+    .tc-card-priority-marker {
+      border-radius: 100%;
+      height: 9px;
+      width: 9px;
+    }
+
+    .tc-card-priority-marker-red {
+      background-color: #E1AEAE;
+    }
+    .tc-card-priority-marker-yellow {
+      background-color: #FFE68E;
+    }
+    .tc-card-priority-marker-green {
+      background-color: #649869;
+    }
+
+    .tc-card-priority-text {
+      font-weight: 400;
+      padding-bottom: 0.1rem;
+    }
+  }
+
   .tc-card-buttons {
     grid-area: buttons;
     justify-self: end;
@@ -48,7 +77,7 @@
     gap: 0.3rem;
     color: inherit;
   }
-  
+
   .tc-bt-i-did-it:hover,
   .tc-bt-i-did-it:focus,
   .tc-bt-i-did-it:active {
@@ -73,4 +102,3 @@
     width: initial;
   }
 }
-
