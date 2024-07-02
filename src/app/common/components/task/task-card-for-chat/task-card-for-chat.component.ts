@@ -7,7 +7,7 @@ import { TaskService } from '../../../services/task.service';
 import { TaskCardComponent } from '../task-card/task-card.component';
 
 @Component({
-  selector: 'tc-task-card-for-chat',
+  selector: 'tc-task-card-for-chat[taskId]',
   standalone: true,
   imports: [CommonModule, TaskCardComponent],
   templateUrl: './task-card-for-chat.component.html',
