@@ -1,7 +1,8 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, delay, switchMap } from 'rxjs';
 
+import { QueryService } from '../../../common/services/query.service';
 import { TaskService } from '../../../common/services/task.service';
 import { Task } from '../../../models/task.model';
 
@@ -10,24 +11,23 @@ import { Task } from '../../../models/task.model';
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.scss'],
 })
-export class TasksComponent implements OnDestroy {
+export class TasksComponent implements OnInit {
   tasks$!: Observable<Task[]>;
-  private ngUnsubscribe$ = new Subject<void>();
+  combinedQuery$ = this.queryService.combined$;
 
   constructor(
     private taskService: TaskService,
-    private router: Router
-  ) {
-    this.getTasks();
-  }
+    private router: Router,
+    private queryService: QueryService
+  ) {}
 
-  ngOnDestroy(): void {
-    this.ngUnsubscribe$.next();
-    this.ngUnsubscribe$.complete();
-  }
-
-  private getTasks(): void {
-    this.tasks$ = this.taskService.getTasks();
+  ngOnInit(): void {
+    this.tasks$ = this.combinedQuery$.pipe(
+      delay(500),
+      switchMap(([refresh, ...rest]) => {
+        return this.taskService.getTasks(...rest);
+      })
+    )
   }
 
   trackByTaskId(i: number, task: Task): string {
@@ -35,7 +35,7 @@ export class TasksComponent implements OnDestroy {
   }
 
   onTaskResolved(): void {
-    this.getTasks();
+    this.queryService.refreshQuery();
   }
 
   onAddTask(): void {

@@ -1,1 +1,42 @@
-<p>query-bar works!</p>
+<div class="tc-query-container">
+  <div class="tc-query-sort">
+    <label class="tc-query-label">Sort by</label>
+    <div class="tc-query-sort-select">
+      <mat-select
+        [value]="sortSelected$ | async"
+        (selectionChange)="onSortChange($event.value)"
+      >
+        <mat-option *ngFor="let option of sortOptions" [value]="option.apiName">
+          {{ option.displayName }}
+        </mat-option>
+      </mat-select>
+    </div>
+  </div>
+
+  <div class="tc-query-search">
+    <label class="tc-query-label">Search</label>
+    <input
+      class="tc-query-search-input"
+      type="search"
+      #searchInput
+      [value]="searchCurrent$ | async"
+      (input)="onSearchChange(searchInput.value)"
+    />
+  </div>
+
+  <div class="tc-query-filter">
+    <label class="tc-query-label">Filter</label>
+    <mat-button-toggle-group
+      class="tc-query-filter-toggle"
+      name="status"
+      [value]="filterCurrent$ | async"
+      (change)="onFilterChange($event.value)"
+      appearance="standard"
+      multiple
+    >
+      <mat-button-toggle value="created"> Created </mat-button-toggle>
+      <mat-button-toggle value="resolved"> Done </mat-button-toggle>
+      <mat-button-toggle value="rejected"> Forgotten </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+</div>
