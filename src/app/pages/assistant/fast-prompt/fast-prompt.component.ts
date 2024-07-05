@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 
-import { FastPrompt } from '../../../models/fastPrompt.model';
+import { FastPrompt } from '../../../models/fast-prompt.model';
 
 @Component({
   selector: 'tc-fast-prompt',

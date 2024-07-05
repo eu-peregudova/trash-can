@@ -15,10 +15,15 @@
   }
 }
 
+
 @media only screen and (min-width: 768px) {
   .tc-tasks-container {
     padding: 0.5rem 5rem;
     flex-direction: row;
+  }
+
+  .tc-tasks-query {
+    order: 1;
   }
 }
 

@@ -3,8 +3,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { TaskCardComponent } from '../../common/components/task/task-card/task-card.component';
-import { TasksComponent } from './tasks/tasks.component';
+import { MaterialModule } from '../../common/modules/material/material.module';
 import { QueryBarComponent } from './query-bar/query-bar.component';
+import { TasksComponent } from './tasks/tasks.component';
 
 const routes: Routes = [
   {
@@ -15,7 +16,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [TasksComponent, QueryBarComponent],
-  imports: [CommonModule, TaskCardComponent, RouterModule.forChild(routes)],
+  imports: [CommonModule, TaskCardComponent, MaterialModule, RouterModule.forChild(routes)],
   exports: [],
 })
 export class TasksModule {}

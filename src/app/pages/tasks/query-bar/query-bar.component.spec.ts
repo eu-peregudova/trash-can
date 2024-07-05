@@ -8,9 +8,8 @@ describe('QueryBarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ QueryBarComponent ]
-    })
-    .compileComponents();
+      declarations: [QueryBarComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(QueryBarComponent);
     component = fixture.componentInstance;
