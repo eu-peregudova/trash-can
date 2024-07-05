@@ -1,0 +1,67 @@
+<div class="tc-table-container">
+  <div class="tc-table-main">
+    <div class="tc-table-row tc-table-row-head">
+      <div>Priority</div>
+      <div>Task description</div>
+      <div></div>
+      <div></div>
+    </div>
+    <div>
+      <div *ngFor="let task of tasks" class="tc-table-row">
+        <div class="tc-table-priority">
+          <div
+            class="tc-table-priority-marker"
+            [ngClass]="{
+              'tc-table-priority-marker-red': task.priority === 'sooner',
+              'tc-table-priority-marker-yellow': task.priority === 'later',
+              'tc-table-priority-marker-green': task.priority === 'maybe never',
+            }"
+          ></div>
+          <p class="tc-table-priority-text">
+            {{ task.priority }}
+          </p>
+        </div>
+        <div
+          class="tc-table-description"
+          (click)="openEditor(task.taskId)"
+          *ngIf="task.status === 'created'; else resolved"
+        >
+          {{ task.description }}
+        </div>
+        <ng-template #resolved>
+          <div class="tc-table-description">
+            {{ task.description }}
+          </div>
+        </ng-template>
+        <div class="tc-table-done">
+          <button
+            *ngIf="task?.status === 'created'"
+            [disabled]="task?.status !== 'created'"
+            class="tc-bt-i-did-it tc-table-button"
+            (click)="resolveEvent(task, status.Resolved)"
+          >
+            <img src="../../../../assets/icons/i-did-it-mark.svg" />
+            I did it
+          </button>
+        </div>
+        <div class="tc-table-discard">
+          <button
+            *ngIf="task?.status === 'created'; else statusMarker"
+            [disabled]="task?.status !== 'created'"
+            class="tc-bt-i-did-it tc-table-button"
+            (click)="resolveEvent(task, status.Rejected)"
+          >
+            <img src="../../../../assets/icons/discart-little-icon.svg" />
+            Forget it
+          </button>
+
+          <ng-template #statusMarker>
+            <p class="tc-table-status-marker">
+              {{ task?.status === 'resolved' ? 'Done' : 'Forgotten' }}
+            </p>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

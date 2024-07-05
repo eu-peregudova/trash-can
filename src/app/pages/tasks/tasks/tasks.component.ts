@@ -14,6 +14,7 @@ import { Task } from '../../../models/task.model';
 export class TasksComponent implements OnInit {
   tasks$!: Observable<Task[]>;
   combinedQuery$ = this.queryService.combined$;
+  cardView = false;
 
   constructor(
     private taskService: TaskService,
@@ -40,5 +41,9 @@ export class TasksComponent implements OnInit {
 
   onAddTask(): void {
     this.router.navigate(['/editor']);
+  }
+
+  onViewChange(): void {
+    this.cardView = !this.cardView;
   }
 }

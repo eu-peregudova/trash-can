@@ -4,6 +4,7 @@
   padding: 1rem;
   color: #828282;
   min-width: 100%;
+  min-height: 8rem;
 
   display: grid;
   grid-template-columns: 2fr 3fr 1fr;
@@ -21,10 +22,17 @@
     .tc-card-edit-button {
       border: none;
       background-color: transparent;
+      padding: 0.5rem;
+      position: relative;
+      right: -0.5rem;
+      top: -0.5rem;
     }
 
     .tc-card-edit-button:hover {
       cursor: pointer;
+      background-color: #ddd;
+      border-radius: 100%;
+      transition: ease-out 0.3s;
     }
   }
 
@@ -64,37 +72,19 @@
   .tc-card-buttons {
     grid-area: buttons;
     justify-self: end;
-  }
 
-  .tc-bt-i-did-it {
-    padding: 0.4rem 0.8rem;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background: transparent;
-    border: #828282 1px solid;
-    border-radius: 0.5rem;
-    gap: 0.3rem;
-    color: inherit;
+    flex-direction: row;
+    gap: 1rem;
   }
+}
 
-  .tc-bt-i-did-it:hover,
-  .tc-bt-i-did-it:focus,
-  .tc-bt-i-did-it:active {
-    transition: ease-in 0.3s;
-    color: black;
-    border-color: black;
-    cursor: pointer;
-    background-color: #82828213;
-  }
-
-  .tc-bt-i-did-it:disabled {
-    cursor: not-allowed;
-    background: transparent;
-    border: #828282 1px solid;
-    color: #828282;
-    opacity: 50%;
-  }
+.tc-card-marker {
+  border: none;
+  color: #828282;
+  font-weight: 300;
+  font-size: 0.8rem;
+  align-self: self-end;
 }
 
 @media only screen and (min-width: 768px) {

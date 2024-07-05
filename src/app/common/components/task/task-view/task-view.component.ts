@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Task } from '../../../../models/task.model';
+import { Task, TaskStatus } from '../../../../models/task.model';
 
 @Component({
   selector: 'tc-task-view[task]',
@@ -12,11 +12,13 @@ import { Task } from '../../../../models/task.model';
 })
 export class TaskViewComponent {
   @Input() task!: Task;
-  @Output() resolve = new EventEmitter<Task>();
+  @Output() resolve = new EventEmitter<TaskStatus.Resolved | TaskStatus.Rejected>();
   @Output() edit = new EventEmitter<void>();
 
-  resolveEvent(): void {
-    this.resolve.emit(this.task);
+  status: typeof TaskStatus = TaskStatus;
+
+  resolveEvent(status: TaskStatus.Resolved | TaskStatus.Rejected): void {
+    this.resolve.emit(status);
   }
 
   editEvent(): void {

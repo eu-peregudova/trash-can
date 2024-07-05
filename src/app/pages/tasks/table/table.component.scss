@@ -1,0 +1,124 @@
+.tc-table-container {
+  width: 100%;
+  margin-top: 0.2rem;
+}
+
+@media only screen and (min-width: 768px) {
+  .tc-table-container {
+    padding: 0.5rem 5rem;
+  }
+}
+
+.tc-table-main {
+  padding: 1rem;
+  border: 2px #E0E0E0 solid;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.tc-table-row {
+  display: grid;
+  grid-template-columns: 2fr 3fr 3fr 3fr;
+  grid-template-rows: 1fr auto;
+  row-gap: 0.5rem;
+  column-gap: 0.5rem;
+  grid-template-areas: 
+    "priority desc desc desc"
+    ". . done discard"
+  ;
+  border-bottom: #E0E0E0 2px solid;
+  align-items: end;
+  padding: 0.5rem 0;
+  font-weight: 500;
+}
+
+.tc-table-row-head {
+  grid-template-columns: 2fr 9fr;
+  grid-template-rows: 1fr;
+  font-weight: 600;
+  color: #828282;
+}
+
+.tc-table-priority {
+  grid-area: priority;
+  color:#828282;
+  font-weight: 400;
+}
+
+.tc-table-description {
+  grid-area: desc;
+}
+
+.tc-table-description:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  transition: ease-in 0.3s;
+}
+
+.tc-table-done {
+  grid-area: done;
+  justify-self: flex-end;
+}
+
+.tc-table-discard {
+  grid-area: discard;
+  justify-self: flex-end;
+}
+
+.tc-table-status-marker {
+  color: #828282;
+  font-weight: 300;
+  font-size: 0.8rem;
+}
+
+@media only screen and (min-width: 1250px) {
+  .tc-table-row {
+    grid-template-columns: 3fr 14fr 2fr 2fr;
+    grid-template-rows: none;
+    grid-template-areas: "priority desc done discard";
+  }
+
+  .tc-table-priority {
+    grid-area: priority;
+  }
+  
+  .tc-table-description {
+    grid-area: desc;
+  }
+  
+  .tc-table-done {
+    grid-area: done;
+  }
+  
+  .tc-table-discard {
+    grid-area: discard;
+  }  
+}
+.tc-table-priority {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+
+
+  .tc-table-priority-marker {
+    border-radius: 100%;
+    height: 9px;
+    width: 9px;
+  }
+
+  .tc-table-priority-marker-red {
+    background-color: #E1AEAE;
+  }
+  .tc-table-priority-marker-yellow {
+    background-color: #FFE68E;
+  }
+  .tc-table-priority-marker-green {
+    background-color: #649869;
+  }
+
+  .tc-table-priority-text {
+    text-wrap: wrap;
+    flex-shrink: 2;
+  }
+}

@@ -6,6 +6,7 @@ import { TaskCardComponent } from '../../common/components/task/task-card/task-c
 import { MaterialModule } from '../../common/modules/material/material.module';
 import { QueryBarComponent } from './query-bar/query-bar.component';
 import { TasksComponent } from './tasks/tasks.component';
+import { TableComponent } from './table/table.component';
 
 const routes: Routes = [
   {
@@ -15,7 +16,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [TasksComponent, QueryBarComponent],
+  declarations: [TasksComponent, QueryBarComponent, TableComponent],
   imports: [CommonModule, TaskCardComponent, MaterialModule, RouterModule.forChild(routes)],
   exports: [],
 })
