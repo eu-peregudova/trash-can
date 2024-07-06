@@ -11,14 +11,10 @@
         <div class="tc-table-priority">
           <div
             class="tc-table-priority-marker"
-            [ngClass]="{
-              'tc-table-priority-marker-red': task.priority === 'sooner',
-              'tc-table-priority-marker-yellow': task.priority === 'later',
-              'tc-table-priority-marker-green': task.priority === 'maybe never',
-            }"
+            [tcPriorityColor]="task.priority"
           ></div>
           <p class="tc-table-priority-text">
-            {{ task.priority }}
+            {{ task.priority === 'maybe never' ? 'nvm' : task.priority }}
           </p>
         </div>
         <div
@@ -29,7 +25,7 @@
           {{ task.description }}
         </div>
         <ng-template #resolved>
-          <div class="tc-table-description">
+          <div class="tc-table-description tc-table-description-resolved">
             {{ task.description }}
           </div>
         </ng-template>

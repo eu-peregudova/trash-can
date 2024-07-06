@@ -32,6 +32,6 @@ export class TableComponent {
   }
 
   openEditor(taskId: string): void {
-    this.router.navigate(['/editor/', taskId]);
+    void this.router.navigate(['/editor/', taskId]);
   }
 }
