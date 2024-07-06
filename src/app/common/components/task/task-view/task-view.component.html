@@ -1,8 +1,8 @@
 <div class="tc-card">
   <div class="tc-card-edit">
-    <button 
-    class="tc-card-edit-button" 
-    (click)="editEvent()" 
+    <button
+    class="tc-card-edit-button"
+    (click)="editEvent()"
     *ngIf="task.status === 'created'">
       <img src="../../../../assets/icons/pajamas_pencil.svg" />
     </button>
@@ -13,11 +13,7 @@
   <div class="tc-card-priority">
     <div
       class="tc-card-priority-marker"
-      [ngClass]="{
-        'tc-card-priority-marker-red': task?.priority === 'sooner',
-        'tc-card-priority-marker-yellow': task?.priority === 'later',
-        'tc-card-priority-marker-green': task?.priority === 'maybe never',
-      }"
+      [tcPriorityColor]="task?.priority"
     ></div>
     <div class="tc-card-priority-text">{{ task?.priority }}</div>
   </div>

@@ -1,6 +1,7 @@
 .tc-table-container {
   width: 100%;
   margin-top: 0.2rem;
+  padding: 1rem 1rem;
 }
 
 @media only screen and (min-width: 768px) {
@@ -19,11 +20,11 @@
 
 .tc-table-row {
   display: grid;
-  grid-template-columns: 2fr 3fr 3fr 3fr;
+  grid-template-columns: 2.5fr 2fr 3.5fr 3.5fr;
   grid-template-rows: 1fr auto;
   row-gap: 0.5rem;
   column-gap: 0.5rem;
-  grid-template-areas: 
+  grid-template-areas:
     "priority desc desc desc"
     ". . done discard"
   ;
@@ -56,6 +57,12 @@
   transition: ease-in 0.3s;
 }
 
+.tc-table-description-resolved:hover {
+  cursor: initial;
+  text-decoration: initial;
+  transition: none;
+}
+
 .tc-table-done {
   grid-area: done;
   justify-self: flex-end;
@@ -82,18 +89,18 @@
   .tc-table-priority {
     grid-area: priority;
   }
-  
+
   .tc-table-description {
     grid-area: desc;
   }
-  
+
   .tc-table-done {
     grid-area: done;
   }
-  
+
   .tc-table-discard {
     grid-area: discard;
-  }  
+  }
 }
 .tc-table-priority {
   display: flex;
@@ -105,16 +112,6 @@
     border-radius: 100%;
     height: 9px;
     width: 9px;
-  }
-
-  .tc-table-priority-marker-red {
-    background-color: #E1AEAE;
-  }
-  .tc-table-priority-marker-yellow {
-    background-color: #FFE68E;
-  }
-  .tc-table-priority-marker-green {
-    background-color: #649869;
   }
 
   .tc-table-priority-text {

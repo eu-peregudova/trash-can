@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { Task, TaskStatus } from '../../../../models/task.model';
+import {PriorityColorDirective} from "../../../directives/priority-color.directive";
 
 @Component({
   selector: 'tc-task-view[task]',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, PriorityColorDirective],
   templateUrl: './task-view.component.html',
   styleUrls: ['./task-view.component.scss'],
 })
