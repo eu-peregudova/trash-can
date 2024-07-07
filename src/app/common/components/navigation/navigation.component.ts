@@ -1,6 +1,8 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+import { AuthService } from '../../services/auth.service';
 import { LogoComponent } from './logo/logo.component';
 
 @Component({
@@ -8,6 +10,14 @@ import { LogoComponent } from './logo/logo.component';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
   standalone: true,
-  imports: [LogoComponent, RouterModule],
+  imports: [LogoComponent, RouterModule, CommonModule],
 })
-export class NavigationComponent {}
+export class NavigationComponent {
+  isAuth = false;
+
+  constructor(private authService: AuthService) {
+    this.authService.isAuthenticated().subscribe((isAuth) => {
+      this.isAuth = isAuth;
+    });
+  }
+}

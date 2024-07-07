@@ -1,5 +1,22 @@
 <div class="tc-assistant-page">
-  <div class="tc-assistant-chat-window">
+  <div class="tc-assistant-banner" *ngIf="!assistantAuthorized">
+    <div class="tc-assistant-banner-text">
+      This is not available to you now. You can request access by clicking the
+      button below.
+    </div>
+    <button
+      *ngIf="!accessRequested"
+      class="tc-assistant-banner-bt"
+      (click)="onRequestAccess()"
+    >
+      Request Access
+    </button>
+    <div *ngIf="accessRequested" class="tc-assistant-banner-text">
+      Your request has been sent. You will be notified when you get access.
+    </div>
+  </div>
+
+  <div class="tc-assistant-chat-window" *ngIf="assistantAuthorized">
     <div
       #messagesContainer
       class="messages"
@@ -11,7 +28,6 @@
         (typeYourselfEvent)="onFastType()"
       >
       </tc-fast-prompt>
-      <!-- <div class="messages-inner"> -->
       <div
         class="tc-message-wrap"
         *ngFor="let message of messagesArray; trackBy: trackByMessage"
@@ -29,9 +45,6 @@
           </div>
         </div>
       </div>
-      <!-- </div> -->
-      <!-- <div class="message" [ngClass]="{ 'user': true }">message</div>
-      <div class="message" [ngClass]="{ 'user': false }">other message</div> -->
     </div>
     <form class="tc-assistant-form" (ngSubmit)="onInput()">
       <input
