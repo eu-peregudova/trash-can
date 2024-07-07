@@ -2,6 +2,7 @@ import { AfterViewChecked, Component, ElementRef, OnDestroy, ViewChild } from '@
 import { Observable, Subject, takeUntil } from 'rxjs';
 
 import { AssistantService } from '../../common/services/assistant.service';
+import { AuthService } from '../../common/services/auth.service';
 import { MessageService } from '../../common/services/message.service';
 import { Message, ParsedMessage } from '../../models/message.model';
 
@@ -13,16 +14,26 @@ import { Message, ParsedMessage } from '../../models/message.model';
 export class AssistantComponent implements OnDestroy, AfterViewChecked {
   inputValue = '';
   messages: Observable<Message[]>;
+  assistantAuthorized = false;
+  accessRequested = false;
   private ngUnsubscribe$ = new Subject<void>();
 
   @ViewChild('inputMessage') inputMessage: ElementRef;
   @ViewChild('messagesContainer') private messagesContainer: ElementRef;
 
   constructor(
+    private authService: AuthService,
     private assistantService: AssistantService,
     private messageService: MessageService
   ) {
     this.messages = this.messageService.messages$;
+    this.authService
+      .isAssistantAuthorized()
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(({ assistantOn, accessRequested }) => {
+        this.assistantAuthorized = assistantOn;
+        this.accessRequested = accessRequested;
+      });
   }
 
   ngAfterViewChecked(): void {
@@ -34,9 +45,19 @@ export class AssistantComponent implements OnDestroy, AfterViewChecked {
     this.ngUnsubscribe$.complete();
   }
 
+  onRequestAccess() {
+    this.authService
+      .requestAssistantAccess()
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(() => {
+        this.accessRequested = true;
+      });
+  }
+
   trackByMessage(i: number): number {
     return i;
   }
+
   trackById(i: number, id: string): string {
     return id;
   }
@@ -90,10 +111,8 @@ export class AssistantComponent implements OnDestroy, AfterViewChecked {
   }
 
   private scrollToBottom(): void {
-    try {
+    if (this.messagesContainer) {
       this.messagesContainer.nativeElement.scrollTop = this.messagesContainer.nativeElement.scrollHeight;
-    } catch (err) {
-      console.error('Scroll to bottom failed: ', err);
     }
   }
 }
