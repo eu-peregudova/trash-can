@@ -22,4 +22,9 @@
       + Add new task
     </button>
   </div>
+  <div class="tc-button-load-more-container">
+    <button [disabled]="!(isNextAvailable | async)" (click)="onLoadMore()" class="tc-button-load-more">
+      Load more
+    </button>
+  </div>
 </section>

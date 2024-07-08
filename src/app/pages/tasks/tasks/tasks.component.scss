@@ -17,7 +17,6 @@
   }
 }
 
-
 @media only screen and (min-width: 768px) {
   .tc-tasks-container {
     padding: 0.5rem 5rem;
@@ -70,7 +69,7 @@
     img {
       height: 1.5rem;
     }
-  };
+  }
 
   .tc-tasks-change-view-bt:hover {
     background-color: $light-gray-hover;
@@ -88,11 +87,26 @@
     padding: 0.5rem 5rem;
     position: inherit;
   }
-  
+
   .tc-button-container-view {
-    order: 1;
+    order: 2;
     padding: 0.5rem 5rem;
   }
+}
 
+.tc-button-load-more-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.tc-button-load-more {
+  border: none;
+  background-color: $primary-light;
+  padding: 2rem;
+}
+
+.tc-button-load-more:hover {
+  cursor: pointer;
 }
