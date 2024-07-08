@@ -1,3 +1,5 @@
+@import 'src/_colors.scss';
+
 .tc-query-container {
   padding: 1rem 1.5rem;
   flex-direction: column;
@@ -6,7 +8,7 @@
   flex-wrap: wrap;
 
   .tc-query-label {
-    color: #7c7c7c;
+    color: $medium-gray;
     font-weight: 400;
     font-size: 0.8rem;
     padding-left: 0.5rem;
@@ -15,7 +17,7 @@
   .tc-query-sort {
 
     .tc-query-sort-select {
-      border: 1px gray solid;
+      border: 1px $dark-gray solid;
       border-radius: 0.5rem;
       min-width: 20rem;
       padding: 0.5rem 1rem;
@@ -25,7 +27,7 @@
   .tc-query-search {
 
     .tc-query-search-input {
-      border: 1px gray solid;
+      border: 1px $dark-gray solid;
       border-radius: 0.5rem;
       height: 100%;
       width: 100%;

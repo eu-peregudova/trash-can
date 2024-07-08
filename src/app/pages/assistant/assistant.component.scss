@@ -1,3 +1,5 @@
+@import 'src/_colors.scss';
+
 .tc-assistant-page {
   width: 100%;
   height: calc(100vh - 5rem);
@@ -22,8 +24,8 @@
     display: flex;
     gap: 0.5rem;
     border-radius: 0.5rem;
-    border: #e0e0e0 1px solid;
-    background-color: white;
+    border: $light-gray 1px solid;
+    background-color: $primary-light;
 
     input {
       height: 3rem;
@@ -34,7 +36,7 @@
     }
 
     input::placeholder {
-      color: #828282;
+      color: $dark-gray;
     }
 
     input:active,
@@ -80,19 +82,11 @@
   overflow-x: visible;
 }
 
-// .messages-inner {
-//   height: 100%;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: flex-end;
-//   gap: 1rem;
-// }
-
 .message {
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
   width: fit-content;
-  background-color: #e9e9eb;
+  background-color: $message-gray;
   text-wrap: wrap;
   font-weight: 400;
   max-width: 80%;
@@ -106,8 +100,8 @@
 }
 
 .user {
-  background-color: black;
-  color: white;
+  background-color: $primary-dark;
+  color: $primary-light;
 }
 
 .right {
