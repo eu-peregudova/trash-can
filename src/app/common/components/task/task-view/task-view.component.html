@@ -3,7 +3,7 @@
     <button
     class="tc-card-edit-button"
     (click)="editEvent()"
-    *ngIf="task.status === 'created'">
+    *ngIf="task.status === status.Created">
       <img src="../../../../assets/icons/pajamas_pencil.svg" />
     </button>
   </div>
