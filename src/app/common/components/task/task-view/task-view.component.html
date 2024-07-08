@@ -7,6 +7,17 @@
   <p class="tc-card-text">
     {{ task?.description }}
   </p>
+  <div class="tc-card-priority">
+    <div
+      class="tc-card-priority-marker"
+      [ngClass]="{
+        'tc-card-priority-marker-red': task.priority === 'sooner',
+        'tc-card-priority-marker-yellow': task.priority === 'later',
+        'tc-card-priority-marker-green': task.priority === 'maybe never',
+      }"
+    ></div>
+    <div class="tc-card-priority-text">{{ task?.priority }}</div>
+  </div>
   <div class="tc-card-buttons">
     <button
       [disabled]="task?.status !== 'created'"

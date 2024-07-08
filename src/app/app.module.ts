@@ -8,6 +8,7 @@ import {
 } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterLink, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -17,7 +18,14 @@ import { NavigationComponent } from './common/components/navigation/navigation.c
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, RouterModule, NavigationComponent, HttpClientModule],
+  imports: [
+    BrowserAnimationsModule,
+    BrowserModule,
+    AppRoutingModule,
+    RouterModule,
+    NavigationComponent,
+    HttpClientModule,
+  ],
   providers: [
     RouterLink,
     {
