@@ -1,8 +1,8 @@
+import { Location } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { Location } from '@angular/common';
 
 import { TaskService } from '../../common/services/task.service';
 import { Task, TaskPriority } from '../../models/task.model';

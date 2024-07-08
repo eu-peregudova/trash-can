@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Task, TaskStatus } from '../../../models/task.model';
-import { TaskService } from '../../../common/services/task.service';
-import { Subject, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
+
+import { TaskService } from '../../../common/services/task.service';
+import { Task, TaskPriority, TaskStatus } from '../../../models/task.model';
 
 @Component({
   selector: 'tc-table[tasks]',
@@ -15,6 +16,7 @@ export class TableComponent {
   private ngUnsubscribe$ = new Subject<void>();
 
   status = TaskStatus;
+  priority = TaskPriority;
 
   constructor(
     private taskService: TaskService,
