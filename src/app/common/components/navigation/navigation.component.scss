@@ -1,9 +1,11 @@
+@import 'src/_colors.scss';
+
 .tc-nav-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 1.5rem;
-  border-bottom: 2px solid #e0e0e0;
+  border-bottom: 2px solid $light-gray;
 
   .tc-nav-link-list-desk {
     display: none;
@@ -37,8 +39,8 @@
   width: 100%;
   font-size: 0.8rem;
   padding: 0.5rem 0;
-  border-top: 2px solid #e0e0e0;
-  background-color: white;
+  border-top: 2px solid $light-gray;
+  background-color: $primary-light;
   z-index: 100;
 
   ul {
@@ -50,7 +52,7 @@
     li {
       min-width: 5rem;
       text-align: center;
-      color: black;
+      color: $primary-dark;
       opacity: 50%;
 
       a {

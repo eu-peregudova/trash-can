@@ -1,3 +1,5 @@
+@import 'src/_colors.scss';
+
 .tc-tasks-page-main {
   margin-bottom: 15rem;
 }
@@ -35,7 +37,7 @@
 
   .tc-tasks-add-new-bt {
     width: 100%;
-    background-color: #eeeeee;
+    background-color: $background-off-light-e;
     border: none;
     padding: 1.2rem 0;
     border-radius: 0.5rem;
@@ -43,7 +45,7 @@
   }
 
   .tc-tasks-add-new-bt:hover {
-    background-color: #dedede;
+    background-color: $light-gray-hover;
     transition: ease-in 0.3s;
     cursor: pointer;
   }
@@ -71,7 +73,7 @@
   };
 
   .tc-tasks-change-view-bt:hover {
-    background-color: #dedede;
+    background-color: $light-gray-hover;
     cursor: pointer;
   }
 }
