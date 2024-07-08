@@ -14,7 +14,7 @@ import { Task } from '../../../models/task.model';
 export class TasksComponent implements OnInit {
   tasks$!: Observable<Task[]>;
   combinedQuery$ = this.queryService.combined$;
-  cardView = false;
+  cardView = true;
 
   constructor(
     private taskService: TaskService,

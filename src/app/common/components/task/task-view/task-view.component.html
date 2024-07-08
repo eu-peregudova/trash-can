@@ -18,29 +18,6 @@
     <div class="tc-card-priority-text">{{ task?.priority }}</div>
   </div>
   <div class="tc-card-buttons">
-    <button
-      *ngIf="task?.status === status.Created; else statusMarker"
-      [disabled]="task?.status !== status.Created"
-      class="tc-bt-i-did-it tc-table-button"
-      (click)="resolveEvent(status.Rejected)"
-    >
-      <img src="../../../../assets/icons/discart-little-icon.svg" />
-      Forget it
-    </button>
-    <button
-      *ngIf="task?.status === status.Created"
-      [disabled]="task?.status !== status.Created"
-      class="tc-bt-i-did-it"
-      (click)="resolveEvent(status.Resolved)"
-    >
-      <img src="../../../../assets/icons/i-did-it-mark.svg" />
-      I did it
-    </button>
-
-    <ng-template #statusMarker>
-      <p class="tc-card-marker">
-        {{ task?.status === 'resolved' ? 'Done' : 'Forgotten' }}
-      </p>
-    </ng-template>
+    <tc-resolve-buttons [taskStatus]="task?.status" (resolveEvent)="resolve"></tc-resolve-buttons>
   </div>
 </div>

@@ -19,7 +19,7 @@ export class Task {
   public priority: TaskPriority;
   public expirationDate: string;
 
-  resolveTask(status: TaskStatus.Rejected | TaskStatus.Resolved): void {
+  resolveTask(status: Exclude<TaskStatus, TaskStatus.Created>): void {
     this.status = status;
     this.updateDate = new Date().toISOString();
   }

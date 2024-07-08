@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class TableComponent {
   @Input() tasks!: Task[];
-  @Output() resolve = new EventEmitter<Task>();
+  @Output() resolveEvent = new EventEmitter<Task>();
   private ngUnsubscribe$ = new Subject<void>();
 
   status = TaskStatus;
@@ -21,13 +21,13 @@ export class TableComponent {
     private router: Router
   ) {}
 
-  resolveEvent(task: Task, status: TaskStatus.Resolved | TaskStatus.Rejected): void {
+  resolve(status: Exclude<TaskStatus, TaskStatus.Created>, task: Task): void {
     task.resolveTask(status);
     this.taskService
       .updateTask(task.taskId, task)
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(() => {
-        this.resolve.emit();
+        this.resolveEvent.emit();
       });
   }
 
