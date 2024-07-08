@@ -1,29 +1,42 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 
 import { environment } from '../../../environments/enviroment';
 import { Task, TaskStatus } from '../../models/task.model';
+import { QueryService } from './query.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
   private apiUrl = `${environment.apiBaseUrl}tasks`;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private queryService: QueryService) {}
 
-  getTasks(search?: string, filter: TaskStatus[] = [TaskStatus.Created], sort?: string): Observable<Task[]> {
+  getTasks(search?: string, filter: TaskStatus[] = [TaskStatus.Created], sort?: string, pagination?: number): Observable<Task[]> {
     const params = new URLSearchParams();
     params.append('filter', filter.join(','));
 
     if (sort) {
       params.append('sort', sort);
     }
+
     if (search) {
       params.append('search', search);
     }
 
-    return this.http.get<Task[]>(this.apiUrl + `?${params.toString()}`).pipe(map((tasks) => tasks.map(Task.fromJSON)));
+    if (pagination) {
+      params.append('p', pagination.toString());
+    }
+
+    return this.http.get<{paginationAmount: number, tasks: Task[]}>(this.apiUrl + `?${params.toString()}`)
+    .pipe(
+      tap((r) => {
+        return this.queryService.updatePaginationTotal(+r.paginationAmount)
+        }),
+      map((r) => r.tasks),
+      map((tasks) => tasks.map(Task.fromJSON))
+  );
   }
 
   getTaskById(id: string): Observable<Task> {
