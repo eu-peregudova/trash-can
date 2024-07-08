@@ -8,9 +8,8 @@ describe('TaskCardForChatComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ TaskCardForChatComponent ]
-    })
-    .compileComponents();
+      imports: [TaskCardForChatComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TaskCardForChatComponent);
     component = fixture.componentInstance;

@@ -11,9 +11,17 @@ import { QueryService } from './query.service';
 })
 export class TaskService {
   private apiUrl = `${environment.apiBaseUrl}tasks`;
-  constructor(private http: HttpClient, private queryService: QueryService) {}
+  constructor(
+    private http: HttpClient,
+    private queryService: QueryService
+  ) {}
 
-  getTasks(search?: string, filter: TaskStatus[] = [TaskStatus.Created], sort?: string, pagination?: number): Observable<Task[]> {
+  getTasks(
+    search?: string,
+    filter: TaskStatus[] = [TaskStatus.Created],
+    sort?: string,
+    pagination?: number
+  ): Observable<Task[]> {
     const params = new URLSearchParams();
     params.append('filter', filter.join(','));
 
@@ -29,14 +37,13 @@ export class TaskService {
       params.append('p', pagination.toString());
     }
 
-    return this.http.get<{paginationAmount: number, tasks: Task[]}>(this.apiUrl + `?${params.toString()}`)
-    .pipe(
+    return this.http.get<{ paginationAmount: number; tasks: Task[] }>(this.apiUrl + `?${params.toString()}`).pipe(
       tap((r) => {
-        return this.queryService.updatePaginationTotal(+r.paginationAmount)
-        }),
+        return this.queryService.updatePaginationTotal(+r.paginationAmount);
+      }),
       map((r) => r.tasks),
       map((tasks) => tasks.map(Task.fromJSON))
-  );
+    );
   }
 
   getTaskById(id: string): Observable<Task> {

@@ -26,7 +26,7 @@ export class QueryService {
   private refreshSubject: BehaviorSubject<void> = new BehaviorSubject<void>(undefined);
   private refresh$ = this.refreshSubject.asObservable();
 
-  combined$: Observable<[void, string, TaskStatus[], string, any]>;
+  combined$: Observable<[void, string, TaskStatus[], string, number]>;
 
   constructor() {
     this.combined$ = combineLatest([this.refresh$, this.search$, this.filter$, this.sort$, this.currentPage$]);
@@ -64,7 +64,7 @@ export class QueryService {
     this.refreshSubject.next();
   }
 
-  getPaginationStatus() {
-    return of(!(this.totalPagesSubject.getValue() - this.currentPageSubject.getValue()))
+  getPaginationStatus(): Observable<boolean> {
+    return of(!(this.totalPagesSubject.getValue() - this.currentPageSubject.getValue()));
   }
 }
