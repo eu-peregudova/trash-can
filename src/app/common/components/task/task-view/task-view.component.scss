@@ -52,38 +52,17 @@
       height: 9px;
       width: 9px;
     }
-
-    .tc-card-priority-marker-red {
-      background-color: #E1AEAE;
-    }
-    .tc-card-priority-marker-yellow {
-      background-color: #FFE68E;
-    }
-    .tc-card-priority-marker-green {
-      background-color: #649869;
-    }
-
+    
     .tc-card-priority-text {
       font-weight: 400;
       padding-bottom: 0.1rem;
     }
   }
-
-  .tc-card-buttons {
-    grid-area: buttons;
-    justify-self: end;
-
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-  }
 }
 
-.tc-card-marker {
-  border: none;
-  color: #828282;
-  font-weight: 300;
-  font-size: 0.8rem;
+.tc-card-buttons {
+  grid-area: buttons;
+  justify-self: self-end;
   align-self: self-end;
 }
 

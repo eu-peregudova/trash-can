@@ -7,7 +7,8 @@ import { MaterialModule } from '../../common/modules/material/material.module';
 import { QueryBarComponent } from './query-bar/query-bar.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { TableComponent } from './table/table.component';
-import {PriorityColorDirective} from "../../common/directives/priority-color.directive";
+import { PriorityColorDirective } from '../../common/directives/priority-color.directive';
+import { ResolveButtonsComponent } from '../../common/components/resolve-buttons/resolve-buttons.component';
 
 const routes: Routes = [
   {
@@ -18,7 +19,14 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [TasksComponent, QueryBarComponent, TableComponent],
-  imports: [CommonModule, TaskCardComponent, MaterialModule, RouterModule.forChild(routes), PriorityColorDirective],
+  imports: [
+    CommonModule,
+    TaskCardComponent,
+    MaterialModule,
+    RouterModule.forChild(routes),
+    PriorityColorDirective,
+    ResolveButtonsComponent,
+  ],
   exports: [],
 })
 export class TasksModule {}

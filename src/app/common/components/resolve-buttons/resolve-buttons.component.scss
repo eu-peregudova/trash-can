@@ -1,0 +1,15 @@
+.tc-card-buttons {
+  grid-area: buttons;
+  justify-self: end;
+
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.tc-card-marker {
+  border: none;
+  color: #828282;
+  font-weight: 300;
+  font-size: 0.8rem;
+}

@@ -4,7 +4,6 @@
       <div>Priority</div>
       <div>Task description</div>
       <div></div>
-      <div></div>
     </div>
     <div>
       <div *ngFor="let task of tasks" class="tc-table-row">
@@ -29,33 +28,8 @@
             {{ task.description }}
           </div>
         </ng-template>
-        <div class="tc-table-done">
-          <button
-            *ngIf="task?.status === 'created'"
-            [disabled]="task?.status !== 'created'"
-            class="tc-bt-i-did-it tc-table-button"
-            (click)="resolveEvent(task, status.Resolved)"
-          >
-            <img src="../../../../assets/icons/i-did-it-mark.svg" />
-            I did it
-          </button>
-        </div>
-        <div class="tc-table-discard">
-          <button
-            *ngIf="task?.status === 'created'; else statusMarker"
-            [disabled]="task?.status !== 'created'"
-            class="tc-bt-i-did-it tc-table-button"
-            (click)="resolveEvent(task, status.Rejected)"
-          >
-            <img src="../../../../assets/icons/discart-little-icon.svg" />
-            Forget it
-          </button>
-
-          <ng-template #statusMarker>
-            <p class="tc-table-status-marker">
-              {{ task?.status === 'resolved' ? 'Done' : 'Forgotten' }}
-            </p>
-          </ng-template>
+        <div class="tc-table-buttons">
+          <tc-resolve-buttons [taskStatus]="task.status" (resolveEvent)="resolve($event, task)"></tc-resolve-buttons>
         </div>
       </div>
     </div>
