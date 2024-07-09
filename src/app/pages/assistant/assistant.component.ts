@@ -2,9 +2,9 @@ import { AfterViewChecked, Component, ElementRef, OnDestroy, ViewChild } from '@
 import { Observable, Subject, takeUntil } from 'rxjs';
 
 import { AssistantService } from '../../common/services/assistant.service';
-import { AuthService } from '../../common/services/auth.service';
 import { MessageService } from '../../common/services/message.service';
 import { Message, ParsedMessage } from '../../models/message.model';
+import { UserService } from '../../common/services/user.service';
 
 @Component({
   selector: 'tc-assistant',
@@ -14,26 +14,17 @@ import { Message, ParsedMessage } from '../../models/message.model';
 export class AssistantComponent implements OnDestroy, AfterViewChecked {
   inputValue = '';
   messages: Observable<Message[]>;
-  assistantAuthorized = false;
-  accessRequested = false;
   private ngUnsubscribe$ = new Subject<void>();
 
   @ViewChild('inputMessage') inputMessage: ElementRef;
   @ViewChild('messagesContainer') private messagesContainer: ElementRef;
 
   constructor(
-    private authService: AuthService,
+    private userService: UserService,
     private assistantService: AssistantService,
     private messageService: MessageService
   ) {
     this.messages = this.messageService.messages$;
-    this.authService
-      .isAssistantAuthorized()
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(({ assistantOn, accessRequested }) => {
-        this.assistantAuthorized = assistantOn;
-        this.accessRequested = accessRequested;
-      });
   }
 
   ngAfterViewChecked(): void {
@@ -46,12 +37,7 @@ export class AssistantComponent implements OnDestroy, AfterViewChecked {
   }
 
   onRequestAccess() {
-    this.authService
-      .requestAssistantAccess()
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(() => {
-        this.accessRequested = true;
-      });
+    this.userService.requestAssistantAccess()
   }
 
   trackByMessage(i: number): number {

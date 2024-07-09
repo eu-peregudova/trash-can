@@ -33,34 +33,6 @@ export class AuthService {
     );
   }
 
-  isMegaAuthorized(): Observable<boolean> {
-    return this.http.get<{ isMegaUser: boolean }>(this.apiUrl + '/authorize').pipe(
-      map((response) => response.isMegaUser),
-      catchError((error) => {
-        console.error('Authorization failed, not mega user', error);
-        return of(false);
-      })
-    );
-  }
-
-  isAssistantAuthorized(): any {
-    console.log('Checking assistant authorization');
-    return this.http.get<{ assistantOn: boolean; accessRequested: boolean }>(this.apiUrl + '/authorize').pipe(
-      map((response) => {
-        console.log(response);
-        return { assistantOn: response.assistantOn, accessRequested: response.accessRequested };
-      }),
-      catchError((error) => {
-        console.error('Authorization failed, assistant off', error);
-        return of(false);
-      })
-    );
-  }
-
-  requestAssistantAccess() {
-    return this.http.post(this.apiUrl + '/assistant', {});
-  }
-
   signOut() {
     localStorage.removeItem('userToken');
   }

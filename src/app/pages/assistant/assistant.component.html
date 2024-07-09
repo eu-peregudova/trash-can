@@ -1,22 +1,22 @@
 <div class="tc-assistant-page">
-  <div class="tc-assistant-banner" *ngIf="!assistantAuthorized">
+  <div class="tc-assistant-banner" *tcShowAssistant="false">
     <div class="tc-assistant-banner-text">
       This is not available to you now. You can request access by clicking the
       button below.
     </div>
     <button
-      *ngIf="!accessRequested"
+      *tcAssistantRequested="false"
       class="tc-assistant-banner-bt"
       (click)="onRequestAccess()"
     >
       Request Access
     </button>
-    <div *ngIf="accessRequested" class="tc-assistant-banner-text">
+    <div *tcAssistantRequested="true" class="tc-assistant-banner-text">
       Your request has been sent. You will be notified when you get access.
     </div>
   </div>
 
-  <div class="tc-assistant-chat-window" *ngIf="assistantAuthorized">
+  <div class="tc-assistant-chat-window" *tcShowAssistant="true">
     <div
       #messagesContainer
       class="messages"

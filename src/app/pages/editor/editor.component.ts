@@ -57,14 +57,14 @@ export class EditorComponent implements OnDestroy {
         .createTask(task)
         .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe(() => {
-          this.router.navigate(['/']);
+          this.router.navigate(['/tasks']);
         });
     } else {
       this.taskService
         .updateTask(this.task.taskId, task)
         .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe(() => {
-          this.router.navigate(['/']);
+          this.router.navigate(['/tasks']);
         });
     }
   }
