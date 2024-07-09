@@ -82,3 +82,17 @@
   opacity: 100%;
   text-decoration: underline;
 }
+
+.tc-nav-logout {
+  background-color: transparent;
+  border: 1px $primary-dark solid;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.tc-nav-logout:hover {
+  background-color: $primary-dark;
+  color: $primary-light;
+  transition: 0.3s ease-in;
+  cursor: pointer;
+}

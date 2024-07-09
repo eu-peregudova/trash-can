@@ -1,55 +1,28 @@
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/enviroment';
+import { UserRole } from '../../models/user-role.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   private apiUrl = `${environment.apiBaseUrl}auth`;
+  private userRoleSubject = new BehaviorSubject(UserRole.Guest);
+  userRole$ = this.userRoleSubject.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  isMegaAuthorized(): Observable<boolean> {
-    return this.http.get<{ isMegaUser: boolean }>(this.apiUrl + '/authorize').pipe(
-      map((response) => response.isMegaUser),
-      catchError((error) => {
-        console.error('Authorization failed, not mega user', error);
-        return of(false);
-      })
-    );
-  }
-
-  isAssistantAuthorized(): Observable<boolean> {
-    console.log('Checking assistant authorization');
-    return this.http.get<{ assistantOn: boolean; accessRequested: boolean }>(this.apiUrl + '/authorize').pipe(
-      map((response) => {
-        console.log(response);
-        return response.assistantOn;
-      }),
-      catchError((error) => {
-        console.error('Authorization failed, assistant off', error);
-        return of(false);
-      })
-    );
-  }
-
-  isAssistantRequested(): Observable<boolean> {
-    console.log('Checking assistant request');
-    return this.http.get<{ assistantOn: boolean; accessRequested: boolean }>(this.apiUrl + '/authorize').pipe(
-      map((response) => {
-        console.log(response);
-        return response.accessRequested;
-      }),
-      catchError((error) => {
-        console.error('Authorization failed, assistant off', error);
-        return of(false);
-      })
-    );
+  updateUserRole(role: UserRole) {
+    this.userRoleSubject.next(role);
   }
 
   requestAssistantAccess() {
-    return this.http.post(this.apiUrl + '/assistant', {});
+    return this.http.post(this.apiUrl + '/assistant', {}).pipe(
+      tap((response: { role: UserRole }) => {
+        this.updateUserRole(response.role);
+      })
+    )
   }
 }

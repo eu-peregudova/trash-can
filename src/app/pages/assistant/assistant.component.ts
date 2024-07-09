@@ -5,6 +5,7 @@ import { AssistantService } from '../../common/services/assistant.service';
 import { MessageService } from '../../common/services/message.service';
 import { Message, ParsedMessage } from '../../models/message.model';
 import { UserService } from '../../common/services/user.service';
+import { UserRole } from '../../models/user-role.model';
 
 @Component({
   selector: 'tc-assistant',
@@ -12,9 +13,13 @@ import { UserService } from '../../common/services/user.service';
   styleUrls: ['./assistant.component.scss'],
 })
 export class AssistantComponent implements OnDestroy, AfterViewChecked {
+  private ngUnsubscribe$ = new Subject<void>();
+  role: typeof UserRole = UserRole;
+
   inputValue = '';
   messages: Observable<Message[]>;
-  private ngUnsubscribe$ = new Subject<void>();
+  
+  userRole$: Observable<UserRole>;
 
   @ViewChild('inputMessage') inputMessage: ElementRef;
   @ViewChild('messagesContainer') private messagesContainer: ElementRef;
@@ -25,6 +30,7 @@ export class AssistantComponent implements OnDestroy, AfterViewChecked {
     private messageService: MessageService
   ) {
     this.messages = this.messageService.messages$;
+    this.userRole$ = this.userService.userRole$;
   }
 
   ngAfterViewChecked(): void {
@@ -36,8 +42,10 @@ export class AssistantComponent implements OnDestroy, AfterViewChecked {
     this.ngUnsubscribe$.complete();
   }
 
-  onRequestAccess() {
-    this.userService.requestAssistantAccess()
+  onRequestAccess(): void {
+    this.userService.requestAssistantAccess().pipe(
+      takeUntil(this.ngUnsubscribe$)
+    ).subscribe();
   }
 
   trackByMessage(i: number): number {
@@ -67,7 +75,7 @@ export class AssistantComponent implements OnDestroy, AfterViewChecked {
   sendMessage(message: Message): void {
     this.messageService.addNewMessage(message);
     this.assistantService
-      .getSuggestion(this.messageService.getHistory())
+      .getSuggestion(this.messageService.getMessages())
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((message) => {
         this.messageService.addNewMessage({ content: message, role: 'assistant' });
