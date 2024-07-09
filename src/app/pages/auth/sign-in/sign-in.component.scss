@@ -1,0 +1,82 @@
+@import 'src/_colors.scss';
+
+.tc-sign-in-container {
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .tc-sign-in-title {
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .tc-sign-in-form {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .tc-sign-in-input-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .tc-sign-in-label {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .tc-sign-in-input {
+      width: 100%;
+      min-width: 10rem;
+      padding: 0.5rem 1rem;
+      border: $dark-gray 1px solid;
+      border-radius: 0.3rem;
+    }
+
+    .tc-sign-in-button {
+      width: 100%;
+      height: 3rem;
+      border: none;
+      border-radius: 0.5rem;
+      background-color: $primary-dark;
+      color: $primary-light;
+      font-weight: bold;
+      margin-top: 2rem;
+    }
+
+    .tc-sign-in-button:hover {
+      cursor: pointer;
+    }
+
+    .tc-sign-in-button:disabled {
+      background-color: $dark-gray;
+      color: $light-gray;
+      cursor: initial;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .tc-sign-in-container {
+    .tc-sign-in-title {
+      margin-bottom: 2rem;
+    }
+
+    .tc-sign-in-form {
+      width: 40%;
+    }
+  }
+}
+
+.tc-sign-in-error {
+  color: red;
+  top: -0.5rem;
+  font-size: 0.8rem;
+  font-weight: 300;
+}

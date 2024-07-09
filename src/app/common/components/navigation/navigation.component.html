@@ -1,6 +1,6 @@
 <nav class="tc-nav-container">
   <tc-logo></tc-logo>
-  <ul class="tc-nav-link-list-desk" *ngIf="isAuth">
+  <ul class="tc-nav-link-list-desk" *tcShowAuth>
     <li routerLinkActive="tc-nav-active">
       <a [routerLink]="['/tasks']">List</a>
     </li>
@@ -14,7 +14,7 @@
   <div>PROF</div>
 </nav>
 
-<nav class="tc-nav-link-list">
+<nav class="tc-nav-link-list" *tcShowAuth>
   <ul>
     <li routerLinkActive="tc-nav-active">
       <a [routerLink]="['/search']">
