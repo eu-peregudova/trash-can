@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../../common/services/auth.service';
+import { UserRole } from '../../../models/user-role.model';
+import { catchError } from 'rxjs';
 
 @Component({
   selector: 'tc-sign-in',
@@ -25,11 +27,12 @@ export class SignInComponent {
 
   onSubmit(): void {
     if (this.signInForm.valid) {
-      console.log(this.signInForm.value);
-      this.authService.signIn(this.signInForm.value).subscribe((data: { token: string }) => {
-        localStorage.setItem('userToken', data.token);
-        console.log(data);
-        this.router.navigate(['/tasks']);
+      this.authService.signIn(this.signInForm.value).subscribe({
+        next: (data: { role: UserRole; token: string }) => {
+          localStorage.setItem('userToken', data.token);
+          this.router.navigate(['/tasks']);
+        },
+        error: (error) => console.log(error),
       });
     } else {
       console.log('Form is not valid');

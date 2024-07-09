@@ -21,7 +21,7 @@
   <div class="tc-card-buttons">
     <tc-resolve-buttons
       [taskStatus]="task?.status"
-      (resolveEvent)="(resolve)"
+      (resolveEvent)="resolveEvent($event)"
     ></tc-resolve-buttons>
   </div>
 </div>

@@ -1,46 +1,33 @@
 import { ChangeDetectorRef, Directive, Input, OnDestroy, TemplateRef, ViewContainerRef } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Subject, takeUntil } from 'rxjs';
+import { UserRole } from '../../models/user-role.model';
 
 @Directive({
   selector: '[tcAssistantRequested]', standalone: true,
 })
-export class AssistantRequestedDirective implements OnDestroy {
-  private ngUnsubscribe$ = new Subject<void>();
-  private _showForRequested: boolean = true;
+export class AssistantRequestedDirective {
+  private _userRole: UserRole;
 
-
-  @Input() set tcAssistantRequested (value: boolean) {
-    this._showForRequested = value;
+  @Input() set tcAssistantRequested(value: UserRole) {
+    this._userRole = value;
     this.updateView();
   }
 
   constructor(
     private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef,
-    private userService: UserService,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
   ) {
     this.updateView();
   }
 
   private updateView(): void {
-    this.ngUnsubscribe$.next();
-    this.userService.isAssistantRequested()
-      .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(isRequested => {
-        if ((isRequested && this._showForRequested) || (!isRequested && !this._showForRequested)) {
-          this.viewContainer.createEmbeddedView(this.templateRef);
-        } else {
-          this.viewContainer.clear();
-        }
-        this.cdRef.markForCheck();
-      });
-  }
-
-  ngOnDestroy(): void {
-    this.ngUnsubscribe$.next();
-    this.ngUnsubscribe$.complete();
-    this.ngUnsubscribe$.unsubscribe();
+      if (this._userRole === UserRole.Requested) {
+        this.viewContainer.createEmbeddedView(this.templateRef);
+      } else {
+        this.viewContainer.clear();
+      }
+      this.cdRef.markForCheck();
   }
 }
