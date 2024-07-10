@@ -15,9 +15,10 @@ import { Observable } from 'rxjs';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NavigationComponent } from './common/components/navigation/navigation.component';
+import { SpinnerComponent } from './common/components/spinner/spinner.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, SpinnerComponent],
   imports: [
     BrowserAnimationsModule,
     BrowserModule,

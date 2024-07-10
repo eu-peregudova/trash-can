@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, Observable, delay, switchMap, tap } from 'rxjs';
 
 import { QueryService } from '../../../common/services/query.service';
 import { TaskService } from '../../../common/services/task.service';
-import { Task } from '../../../models/task.model';
+import { Task, TaskStatus } from '../../../models/task.model';
+import { SpinnerService } from '../../../common/services/spinner.service';
 
 @Component({
   selector: 'tc-tasks',
@@ -23,21 +24,31 @@ export class TasksComponent implements OnInit {
   constructor(
     private taskService: TaskService,
     private router: Router,
-    private queryService: QueryService
+    private queryService: QueryService,
+    private spinnerService: SpinnerService,
   ) {}
 
   ngOnInit(): void {
+    this.getTasks();
+  }
+
+  getTasks() {
     this.tasks$ = this.combinedQuery$.pipe(
       switchMap(([_refresh, ...rest]) => {
+        this.spinnerService.showSpinner();
         return this.taskService.getTasks(...rest);
       }),
       tap(() => {
-        if (this.queryService.getTotalPages() === this.queryService.getCurrentPage() || 
-        this.queryService.getTotalPages() === 0) {
+        if (this.queryService.getTotalPages() === this.queryService.getCurrentPage() 
+          || this.queryService.getTotalPages() === 0) {
           this.loadMoreShowSubject.next(false);
         } else {
           this.loadMoreShowSubject.next(true);
         }
+      }),
+      delay(300),
+      tap(() => {
+        this.spinnerService.hideSpinner()
       })
     );
   }
