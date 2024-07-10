@@ -27,6 +27,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () => import('./pages/editor/editor.module').then((m) => m.EditorModule),
   },
+  {
+    path: 'stats',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/stats/stats.module').then((m) => m.StatsModule),
+  },
 ];
 
 @NgModule({
