@@ -190,19 +190,19 @@
   width: 90vw;
   height: 90vh;
   z-index: 100;
-  background-color: #ffffffc5;
+  background-color: #ffffffaa;
 }
 
 .tc-editor-dialog {
   padding: 2rem 5rem;
   background-color: $primary-light;
-  border: 1px solid black;
   border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
   justify-content: center;
   align-items: center;
+  box-shadow: 4px 1px 15px 0px rgba(166,166,166,1);
 
   p {
     font-size: 1.2rem;
