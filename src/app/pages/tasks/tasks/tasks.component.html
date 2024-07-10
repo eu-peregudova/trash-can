@@ -6,35 +6,37 @@
       <img *ngIf="!cardView" src="../../../../assets/icons/cards-icon.svg" />
     </button>
   </div>
-  <div class="tc-tasks-no-data" *ngIf="(tasks$ | async).length === 0">
-    <p>No data to show</p>
-  </div>
-    <div class="tc-tasks-container" *ngIf="cardView">
-      <tc-task-card
-        class="tc-task"
-        *ngFor="let task of tasks$ | async; trackBy: trackByTaskId"
-        [task]="task"
+  <ng-container *ngIf="(tasks$ | async) as tasks">
+    <div class="tc-tasks-no-data" *ngIf="tasks.length === 0">
+      <p>No data to show</p>
+    </div>
+      <div class="tc-tasks-container" *ngIf="cardView">
+        <tc-task-card
+          class="tc-task"
+          *ngFor="let task of tasks; trackBy: trackByTaskId"
+          [task]="task"
+          (resolve)="onTaskResolved()"
+        ></tc-task-card>
+      </div>
+      <tc-table
+        class="tc-tasks-table"
+        [tasks]="tasks"
+        *ngIf="!cardView"
         (resolve)="onTaskResolved()"
-      ></tc-task-card>
-    </div>
-    <tc-table
-      class="tc-tasks-table"
-      [tasks]="tasks$ | async"
-      *ngIf="!cardView"
-      (resolve)="onTaskResolved()"
-    >
-    </tc-table>
-    <div class="tc-button-container">
-      <button class="tc-tasks-add-new-bt" (click)="onAddTask()">
-        + Add new task
-      </button>
-    </div>
-    <div class="tc-button-load-more-container" *ngIf="(loadMoreShow$ | async)">
-      <button
-        (click)="onLoadMore()"
-        class="tc-button-load-more"
       >
-        Load more
-      </button>
-    </div>
+      </tc-table>
+      <div class="tc-button-container">
+        <button class="tc-tasks-add-new-bt" (click)="onAddTask()">
+          + Add new task
+        </button>
+      </div>
+      <div class="tc-button-load-more-container" *ngIf="(loadMoreShow$ | async)">
+        <button
+          (click)="onLoadMore()"
+          class="tc-button-load-more"
+        >
+          Load more
+        </button>
+      </div>
+  </ng-container>
 </section>
