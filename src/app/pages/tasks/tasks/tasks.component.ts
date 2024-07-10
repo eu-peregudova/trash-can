@@ -32,7 +32,8 @@ export class TasksComponent implements OnInit {
         return this.taskService.getTasks(...rest);
       }),
       tap(() => {
-        if (this.queryService.getTotalPages() === this.queryService.getCurrentPage()) {
+        if (this.queryService.getTotalPages() === this.queryService.getCurrentPage() || 
+        this.queryService.getTotalPages() === 0) {
           this.loadMoreShowSubject.next(false);
         } else {
           this.loadMoreShowSubject.next(true);
