@@ -1,5 +1,5 @@
 <div class="tc-sign-up-container">
-  <h1 class="tc-sign-up-title">Register</h1>
+  <h1 class="tc-sign-up-title">Fill in the form to register</h1>
   <form (ngSubmit)="onSubmit()" [formGroup]="signUpForm" class="tc-sign-up-form">
     <div class="tc-sign-up-input-wrap">
       <label class="tc-sign-up-label" for="name">Name</label>
@@ -52,7 +52,7 @@
       </div>
     </div>
 
-    <button [disabled]="!signUpForm.valid" class="tc-sign-up-button" type="submit">Register</button>
+    <button [disabled]="!signUpForm.valid" class="tc-sign-up-button" type="submit">Continue</button>
     <p class="tc-auth-switch">Already have an account? <a [routerLink]="['/auth/sign-in']">Login</a></p>
   </form>
 </div>
