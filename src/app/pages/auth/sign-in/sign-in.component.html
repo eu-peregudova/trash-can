@@ -27,6 +27,7 @@
       </div>
     </div>
     <button class="tc-sign-in-button" type="submit" [disabled]="!signInForm.valid">Login</button>
+    <p class="tc-auth-switch">Don't have an account? <a [routerLink]="['/auth/sign-up']">Register</a></p>
   </form>
 
 </div>

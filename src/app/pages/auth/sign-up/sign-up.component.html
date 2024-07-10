@@ -53,6 +53,6 @@
     </div>
 
     <button [disabled]="!signUpForm.valid" class="tc-sign-up-button" type="submit">Register</button>
+    <p class="tc-auth-switch">Already have an account? <a [routerLink]="['/auth/sign-in']">Login</a></p>
   </form>
-
 </div>
