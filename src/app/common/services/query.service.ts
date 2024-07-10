@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
+import { BehaviorSubject, combineLatest, debounceTime, Observable, of } from 'rxjs';
 
 import { SortOptionApiName } from '../../models/sort.model';
 import { TaskStatus } from '../../models/task.model';
@@ -9,7 +9,7 @@ import { TaskStatus } from '../../models/task.model';
 })
 export class QueryService {
   private searchSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
-  search$ = this.searchSubject.asObservable();
+  search$ = this.searchSubject.asObservable().pipe(debounceTime(1000));
 
   private filterSubject: BehaviorSubject<TaskStatus[]> = new BehaviorSubject<TaskStatus[]>([TaskStatus.Created]);
   filter$ = this.filterSubject.asObservable();
@@ -17,8 +17,9 @@ export class QueryService {
   private sortSubject: BehaviorSubject<string> = new BehaviorSubject<string>(SortOptionApiName.NewerFirst);
   sort$ = this.sortSubject.asObservable();
 
+  // paging
   private currentPageSubject: BehaviorSubject<number> = new BehaviorSubject<number>(1);
-  currentPage$ = this.currentPageSubject.asObservable();
+  currentPage$ = this.currentPageSubject.asObservable().pipe(debounceTime(1000));
 
   private totalPagesSubject: BehaviorSubject<number> = new BehaviorSubject<number>(1);
   totalPages$ = this.totalPagesSubject.asObservable();
@@ -26,7 +27,7 @@ export class QueryService {
   private refreshSubject: BehaviorSubject<void> = new BehaviorSubject<void>(undefined);
   private refresh$ = this.refreshSubject.asObservable();
 
-  combined$: Observable<[void, string, TaskStatus[], string, any]>;
+  combined$: Observable<[void, string, TaskStatus[], string, number]>;
 
   constructor() {
     this.combined$ = combineLatest([this.refresh$, this.search$, this.filter$, this.sort$, this.currentPage$]);
@@ -64,7 +65,7 @@ export class QueryService {
     this.refreshSubject.next();
   }
 
-  getPaginationStatus() {
-    return of(!(this.totalPagesSubject.getValue() - this.currentPageSubject.getValue()))
+  getPaginationStatus(): Observable<boolean> {
+    return of(!(this.totalPagesSubject.getValue() - this.currentPageSubject.getValue()));
   }
 }

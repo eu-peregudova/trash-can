@@ -1,9 +1,10 @@
 <div class="tc-card">
   <div class="tc-card-edit">
     <button
-    class="tc-card-edit-button"
-    (click)="editEvent()"
-    *ngIf="task.status === status.Created">
+      class="tc-card-edit-button"
+      (click)="editEvent()"
+      *ngIf="task.status === status.Created"
+    >
       <img src="../../../../assets/icons/pajamas_pencil.svg" />
     </button>
   </div>
@@ -18,6 +19,9 @@
     <div class="tc-card-priority-text">{{ task?.priority }}</div>
   </div>
   <div class="tc-card-buttons">
-    <tc-resolve-buttons [taskStatus]="task?.status" (resolveEvent)="resolve"></tc-resolve-buttons>
+    <tc-resolve-buttons
+      [taskStatus]="task?.status"
+      (resolveEvent)="resolveEvent($event)"
+    ></tc-resolve-buttons>
   </div>
 </div>

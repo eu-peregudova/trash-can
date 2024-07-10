@@ -8,9 +8,8 @@ describe('ResolveButtonsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ResolveButtonsComponent ]
-    })
-    .compileComponents();
+      declarations: [ResolveButtonsComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ResolveButtonsComponent);
     component = fixture.componentInstance;

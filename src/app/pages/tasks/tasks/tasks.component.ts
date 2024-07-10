@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, delay, switchMap } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 
 import { QueryService } from '../../../common/services/query.service';
 import { TaskService } from '../../../common/services/task.service';
@@ -28,11 +28,10 @@ export class TasksComponent implements OnInit {
 
   ngOnInit(): void {
     this.tasks$ = this.combinedQuery$.pipe(
-      delay(500),
-      switchMap(([refresh, ...rest]) => {
-        return this.taskService.getTasks(...rest)
+      switchMap(([_refresh, ...rest]) => {
+        return this.taskService.getTasks(...rest);
       })
-    )
+    );
   }
 
   trackByTaskId(i: number, task: Task): string {
@@ -53,6 +52,6 @@ export class TasksComponent implements OnInit {
 
   onLoadMore(): void {
     this.queryService.updatePagination();
-    this.queryService.refreshQuery()
+    this.queryService.refreshQuery();
   }
 }

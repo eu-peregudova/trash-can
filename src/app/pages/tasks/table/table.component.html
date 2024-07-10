@@ -13,13 +13,13 @@
             [tcPriorityColor]="task.priority"
           ></div>
           <p class="tc-table-priority-text">
-            {{ task.priority === 'maybe never' ? 'nvm' : task.priority }}
+            {{ task.priority === priority.MaybeNever ? 'nvm' : task.priority }}
           </p>
         </div>
         <div
           class="tc-table-description"
           (click)="openEditor(task.taskId)"
-          *ngIf="task.status === 'created'; else resolved"
+          *ngIf="task.status === status.Created; else resolved"
         >
           {{ task.description }}
         </div>
@@ -29,7 +29,10 @@
           </div>
         </ng-template>
         <div class="tc-table-buttons">
-          <tc-resolve-buttons [taskStatus]="task.status" (resolveEvent)="resolve($event, task)"></tc-resolve-buttons>
+          <tc-resolve-buttons
+            [taskStatus]="task.status"
+            (resolveEvent)="resolve($event, task)"
+          ></tc-resolve-buttons>
         </div>
       </div>
     </div>

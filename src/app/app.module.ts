@@ -34,7 +34,7 @@ import { NavigationComponent } from './common/components/navigation/navigation.c
         intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
           const clonedRequest = req.clone({
             setHeaders: {
-              'user-id': '1',
+              'Authorization': `Bearer ${localStorage.getItem('userToken')}`,
             },
           });
           return next.handle(clonedRequest);

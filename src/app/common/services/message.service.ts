@@ -14,7 +14,7 @@ export class MessageService {
     this.messagesSubject.next([...this.messagesSubject.getValue(), newMessage]);
   }
 
-  getHistory(): Message[] {
+  getMessages(): Message[] {
     return this.messagesSubject.getValue();
   }
 }

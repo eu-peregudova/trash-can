@@ -21,10 +21,11 @@
   .tc-tasks-container {
     padding: 0.5rem 5rem;
     flex-direction: row;
+    order: 2;
   }
 
   .tc-tasks-query {
-    order: 2;
+    order: 5;
   }
 }
 
@@ -86,10 +87,11 @@
   .tc-button-container {
     padding: 0.5rem 5rem;
     position: inherit;
+    order: 3;
   }
 
   .tc-button-container-view {
-    order: 2;
+    order: 4;
     padding: 0.5rem 5rem;
   }
 }
@@ -109,4 +111,10 @@
 
 .tc-button-load-more:hover {
   cursor: pointer;
+}
+
+@media only screen and (min-width: 768px) {
+  .tc-button-load-more-container {
+    order: 1;
+  }
 }

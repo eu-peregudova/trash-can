@@ -4,6 +4,8 @@ import { Observable, Subject, takeUntil } from 'rxjs';
 import { AssistantService } from '../../common/services/assistant.service';
 import { MessageService } from '../../common/services/message.service';
 import { Message, ParsedMessage } from '../../models/message.model';
+import { UserService } from '../../common/services/user.service';
+import { UserRole } from '../../models/user-role.model';
 
 @Component({
   selector: 'tc-assistant',
@@ -11,18 +13,24 @@ import { Message, ParsedMessage } from '../../models/message.model';
   styleUrls: ['./assistant.component.scss'],
 })
 export class AssistantComponent implements OnDestroy, AfterViewChecked {
+  private ngUnsubscribe$ = new Subject<void>();
+  role: typeof UserRole = UserRole;
+
   inputValue = '';
   messages: Observable<Message[]>;
-  private ngUnsubscribe$ = new Subject<void>();
+  
+  userRole$: Observable<UserRole>;
 
   @ViewChild('inputMessage') inputMessage: ElementRef;
   @ViewChild('messagesContainer') private messagesContainer: ElementRef;
 
   constructor(
+    private userService: UserService,
     private assistantService: AssistantService,
     private messageService: MessageService
   ) {
     this.messages = this.messageService.messages$;
+    this.userRole$ = this.userService.userRole$;
   }
 
   ngAfterViewChecked(): void {
@@ -34,9 +42,16 @@ export class AssistantComponent implements OnDestroy, AfterViewChecked {
     this.ngUnsubscribe$.complete();
   }
 
+  onRequestAccess(): void {
+    this.userService.requestAssistantAccess().pipe(
+      takeUntil(this.ngUnsubscribe$)
+    ).subscribe();
+  }
+
   trackByMessage(i: number): number {
     return i;
   }
+
   trackById(i: number, id: string): string {
     return id;
   }
@@ -60,7 +75,7 @@ export class AssistantComponent implements OnDestroy, AfterViewChecked {
   sendMessage(message: Message): void {
     this.messageService.addNewMessage(message);
     this.assistantService
-      .getSuggestion(this.messageService.getHistory())
+      .getSuggestion(this.messageService.getMessages())
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((message) => {
         this.messageService.addNewMessage({ content: message, role: 'assistant' });
@@ -90,10 +105,8 @@ export class AssistantComponent implements OnDestroy, AfterViewChecked {
   }
 
   private scrollToBottom(): void {
-    try {
+    if (this.messagesContainer) {
       this.messagesContainer.nativeElement.scrollTop = this.messagesContainer.nativeElement.scrollHeight;
-    } catch (err) {
-      console.error('Scroll to bottom failed: ', err);
     }
   }
 }

@@ -1,0 +1,58 @@
+<div class="tc-sign-up-container">
+  <h1 class="tc-sign-up-title">Register</h1>
+  <form (ngSubmit)="onSubmit()" [formGroup]="signUpForm" class="tc-sign-up-form">
+    <div class="tc-sign-up-input-wrap">
+      <label class="tc-sign-up-label" for="name">Name</label>
+      <input class="tc-sign-up-input" formControlName="name" id="name" type="text" />
+      <div
+        class="tc-sign-up-error"
+        *ngIf="
+        signUpForm.get('name')?.invalid && signUpForm.get('name')?.touched
+      "
+      >
+        Please enter at least 3 characters.
+      </div>
+    </div>
+    <div class="tc-sign-up-input-wrap">
+      <label class="tc-sign-up-label" for="email">Email</label>
+      <input class="tc-sign-up-input" formControlName="email" id="email" type="email" />
+      <div
+        class="tc-sign-up-error"
+        *ngIf="
+        signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched
+      "
+      >
+        Please enter a valid email.
+      </div>
+    </div>
+    <div class="tc-sign-up-input-wrap">
+      <label class="tc-sign-up-label" for="password">Password</label>
+      <input class="tc-sign-up-input" formControlName="password" id="password" type="password" />
+      <div
+        class="tc-sign-up-error"
+        *ngIf="
+        signUpForm.get('password')?.invalid &&
+        signUpForm.get('password')?.touched
+      "
+      >
+        Password must be at least 6 characters long.
+      </div>
+    </div>
+    <div *ngIf="signUpForm.get('password')?.touched" class="tc-sign-up-input-wrap">
+      <label class="tc-sign-up-label" for="repeatPassword">Repeat Password</label>
+      <input class="tc-sign-up-input" formControlName="repeatPassword" id="repeatPassword" type="password" />
+      <div
+        class="tc-sign-up-error"
+        *ngIf="
+        signUpForm.get('repeatPassword')?.invalid &&
+        signUpForm.get('repeatPassword')?.touched
+      "
+      >
+        Password must be the same.
+      </div>
+    </div>
+
+    <button [disabled]="!signUpForm.valid" class="tc-sign-up-button" type="submit">Register</button>
+  </form>
+
+</div>

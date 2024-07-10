@@ -1,38 +1,42 @@
-<nav class="tc-nav-container">
-  <tc-logo></tc-logo>
-  <ul class="tc-nav-link-list-desk">
-    <li routerLinkActive="tc-nav-active">
-      <a [routerLink]="['/tasks']">List</a>
-    </li>
-    <li routerLinkActive="tc-nav-active">
-      <a [routerLink]="['/assistant']">Chat with AI</a>
-    </li>
-    <li routerLinkActive="tc-nav-active">
-      <a [routerLink]="['/stats']">Statistics</a>
-    </li>
-  </ul>
-  <div>PROF</div>
-</nav>
+<ng-container>
+  <nav class="tc-nav-container">
+    <tc-logo></tc-logo>
+    <ul class="tc-nav-link-list-desk" *tcShowAuth="userRole$ | async">
+      <li routerLinkActive="tc-nav-active">
+        <a [routerLink]="['/tasks']">List</a>
+      </li>
+      <li routerLinkActive="tc-nav-active">
+        <a [routerLink]="['/assistant']">Chat with AI</a>
+      </li>
+      <li routerLinkActive="tc-nav-active">
+        <a [routerLink]="['/stats']">Statistics</a>
+      </li>
+    </ul>
+    <button *ngIf="(userRole$ | async) !== 'guest'"
+    class="tc-nav-logout"
+    type="button" (click)="logOut()">Log out</button>
+  </nav>
 
-<nav class="tc-nav-link-list">
-  <ul>
-    <li routerLinkActive="tc-nav-active">
-      <a [routerLink]="['/search']">
-        <img class="tc-nav-icon" src="../../../../assets/Search.svg" />
-        Search
-      </a>
-    </li>
-    <li routerLinkActive="tc-nav-active">
-      <a [routerLink]="['/tasks']">
-        <img class="tc-nav-icon" src="../../../../assets/task-list.svg" />
-        All tasks</a
-      >
-    </li>
-    <li routerLinkActive="tc-nav-active">
-      <a [routerLink]="['/assistant']">
-        <img class="tc-nav-icon" src="../../../../assets/ai-chat.svg" />
-        AI</a
-      >
-    </li>
-  </ul>
-</nav>
+  <nav class="tc-nav-link-list" *tcShowAuth="userRole$ | async">
+    <ul>
+      <li routerLinkActive="tc-nav-active">
+        <a [routerLink]="['/search']">
+          <img class="tc-nav-icon" src="../../../../assets/Search.svg" />
+          Search
+        </a>
+      </li>
+      <li routerLinkActive="tc-nav-active">
+        <a [routerLink]="['/tasks']">
+          <img class="tc-nav-icon" src="../../../../assets/task-list.svg" />
+          All tasks</a
+        >
+      </li>
+      <li routerLinkActive="tc-nav-active">
+        <a [routerLink]="['/assistant']">
+          <img class="tc-nav-icon" src="../../../../assets/ai-chat.svg" />
+          AI</a
+        >
+      </li>
+    </ul>
+  </nav>
+</ng-container>

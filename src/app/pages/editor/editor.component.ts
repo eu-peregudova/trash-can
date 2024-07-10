@@ -1,8 +1,8 @@
+import { Location } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { Location } from '@angular/common';
 
 import { TaskService } from '../../common/services/task.service';
 import { Task, TaskPriority } from '../../models/task.model';
@@ -57,14 +57,14 @@ export class EditorComponent implements OnDestroy {
         .createTask(task)
         .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe(() => {
-          this.router.navigate(['/']);
+          this.router.navigate(['/tasks']);
         });
     } else {
       this.taskService
         .updateTask(this.task.taskId, task)
         .pipe(takeUntil(this.ngUnsubscribe$))
         .subscribe(() => {
-          this.router.navigate(['/']);
+          this.router.navigate(['/tasks']);
         });
     }
   }

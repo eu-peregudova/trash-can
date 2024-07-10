@@ -8,9 +8,8 @@ describe('TaskViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ TaskViewComponent ]
-    })
-    .compileComponents();
+      imports: [TaskViewComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TaskViewComponent);
     component = fixture.componentInstance;
