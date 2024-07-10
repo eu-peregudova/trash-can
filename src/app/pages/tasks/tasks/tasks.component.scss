@@ -135,3 +135,13 @@
     order: 2
   }
 }
+
+.tc-tasks-no-data {
+  width: 100%;
+  padding: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 300;
+  font-size: 0.8rem;
+}
