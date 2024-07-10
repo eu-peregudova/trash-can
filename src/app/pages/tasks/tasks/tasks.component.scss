@@ -19,6 +19,14 @@
 
 @media only screen and (min-width: 768px) {
   .tc-tasks-container {
+    .tc-task {
+      max-width: 50%;
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .tc-tasks-container {
     padding: 0.5rem 5rem;
     flex-direction: row;
     order: 2;
@@ -106,15 +114,24 @@
 .tc-button-load-more {
   border: none;
   background-color: $primary-light;
-  padding: 2rem;
+  border: 1px $primary-dark solid;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem 3rem; 
 }
 
 .tc-button-load-more:hover {
   cursor: pointer;
+  background-color: $primary-dark;
+  color: $primary-light;
 }
 
 @media only screen and (min-width: 768px) {
   .tc-button-load-more-container {
     order: 1;
+  }
+
+  .tc-tasks-table {
+    order: 2
   }
 }

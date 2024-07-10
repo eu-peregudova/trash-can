@@ -61,11 +61,15 @@ export class QueryService {
     this.totalPagesSubject.next(amount);
   }
 
-  refreshQuery(): void {
-    this.refreshSubject.next();
+  getTotalPages(): number {
+    return this.totalPagesSubject.getValue();
   }
 
-  getPaginationStatus(): Observable<boolean> {
-    return of(!(this.totalPagesSubject.getValue() - this.currentPageSubject.getValue()));
+  getCurrentPage(): number {
+    return this.currentPageSubject.getValue();
+  }
+
+  refreshQuery(): void {
+    this.refreshSubject.next();
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, switchMap, tap } from 'rxjs';
 
 import { QueryService } from '../../../common/services/query.service';
 import { TaskService } from '../../../common/services/task.service';
@@ -15,10 +15,10 @@ export class TasksComponent implements OnInit {
   tasks$!: Observable<Task[]>;
   combinedQuery$ = this.queryService.combined$;
   currentPage$ = this.queryService.currentPage$;
-  loading = false;
   cardView = true;
 
-  isNextAvailable = this.queryService.getPaginationStatus();
+  loadMoreShowSubject = new BehaviorSubject(false);
+  loadMoreShow$ = this.loadMoreShowSubject.asObservable();
 
   constructor(
     private taskService: TaskService,
@@ -30,6 +30,13 @@ export class TasksComponent implements OnInit {
     this.tasks$ = this.combinedQuery$.pipe(
       switchMap(([_refresh, ...rest]) => {
         return this.taskService.getTasks(...rest);
+      }),
+      tap(() => {
+        if (this.queryService.getTotalPages() === this.queryService.getCurrentPage()) {
+          this.loadMoreShowSubject.next(false);
+        } else {
+          this.loadMoreShowSubject.next(true);
+        }
       })
     );
   }
