@@ -17,6 +17,10 @@ export class EditorComponent implements OnDestroy {
   optionsPriority = Object.values(TaskPriority);
   task: Task;
   isNew: boolean = true;
+  showModal = false;
+
+  confirm = false;
+
   private ngUnsubscribe$ = new Subject<void>();
 
   constructor(
@@ -78,11 +82,20 @@ export class EditorComponent implements OnDestroy {
     this.location.back();
   }
 
+  onConfirm(value) {
+    this.confirm = value;
+    if (value) {
+      this.taskService.deleteTask(this.task.taskId).subscribe({
+        next: () => {
+          this.showModal = false;
+          this.location.back();
+        },
+      });
+    }
+    this.showModal = false;
+  }
+
   onDelete(): void {
-    this.taskService.deleteTask(this.task.taskId).subscribe({
-      next: () => {
-        this.router.navigate(['/']);
-      },
-    });
+    this.showModal = true;
   }
 }
