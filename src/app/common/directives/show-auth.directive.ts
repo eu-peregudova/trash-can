@@ -1,6 +1,4 @@
-import { ChangeDetectorRef, Directive, Input, OnDestroy, TemplateRef, ViewContainerRef } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
-import { UserService } from '../services/user.service';
+import { ChangeDetectorRef, Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 import { UserRole } from '../../models/user-role.model';
 
 @Directive({
@@ -24,7 +22,6 @@ export class ShowAuthDirective {
   }
 
   private updateView(): void {
-    console.log(this._userRole)
       if (this._userRole && this._userRole !== UserRole.Guest) {
         this.viewContainer.createEmbeddedView(this.templateRef);
       } else {
