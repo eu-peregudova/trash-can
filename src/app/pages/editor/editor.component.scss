@@ -59,7 +59,7 @@
       max-width: 30rem;
       border: $light-gray 1px solid;
       border-radius: 1rem;
-      padding: 4rem 5rem;
+      padding: 4rem 5rem 2rem 5rem;
       min-width: 700px;
     }
   }
@@ -183,12 +183,16 @@
 }
 
 .tc-editor-modal {
-  position: absolute;
+  position: fixed;
+  left: 0;
+  top: 0;
+
+
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 90vw;
-  height: 90vh;
+  width: 100vw;
+  height: 80vh;
   z-index: 100;
   background-color: #ffffffaa;
 }
@@ -207,6 +211,21 @@
   p {
     font-size: 1.2rem;
     font-weight: 500;
+    text-align: center;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .tc-editor-modal {
+    width: 90vw;
+    height: 90vh;
+    position: absolute;
+    top: initial;
+    left: initial;
+  }
+
+  .tc-editor-dialog {
+    padding: 2rem 5rem;
   }
 }
 
