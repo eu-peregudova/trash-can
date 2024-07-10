@@ -14,7 +14,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private userService: UserService
+    private userService: UserService,
   ) {}
 
   signIn(credentials: { email: string; password: string }) {
@@ -52,6 +52,7 @@ export class AuthService {
 
   signOut() {
     localStorage.removeItem('userToken');
+    location.reload();
     this.userService.updateUserRole(UserRole.Guest);
   }
 }
