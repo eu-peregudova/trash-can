@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
 
 import { SortOptionApiName } from '../../models/sort.model';
 import { TaskStatus } from '../../models/task.model';
@@ -17,35 +17,54 @@ export class QueryService {
   private sortSubject: BehaviorSubject<string> = new BehaviorSubject<string>(SortOptionApiName.NewerFirst);
   sort$ = this.sortSubject.asObservable();
 
-  private paginationSubject: BehaviorSubject<number> = new BehaviorSubject<number>(10);
-  pagination$ = this.paginationSubject.asObservable();
+  private currentPageSubject: BehaviorSubject<number> = new BehaviorSubject<number>(1);
+  currentPage$ = this.currentPageSubject.asObservable();
+
+  private totalPagesSubject: BehaviorSubject<number> = new BehaviorSubject<number>(1);
+  totalPages$ = this.totalPagesSubject.asObservable();
 
   private refreshSubject: BehaviorSubject<void> = new BehaviorSubject<void>(undefined);
   private refresh$ = this.refreshSubject.asObservable();
 
-  combined$: Observable<[void, string, TaskStatus[], string]>;
+  combined$: Observable<[void, string, TaskStatus[], string, any]>;
 
   constructor() {
-    this.combined$ = combineLatest([this.refresh$, this.search$, this.filter$, this.sort$]);
+    this.combined$ = combineLatest([this.refresh$, this.search$, this.filter$, this.sort$, this.currentPage$]);
   }
 
   updateSearch(search: string): void {
+    this.currentPageSubject.next(1);
     this.searchSubject.next(search);
   }
 
   updateFilter(filter: TaskStatus[]): void {
+    this.currentPageSubject.next(1);
     this.filterSubject.next(filter);
   }
 
   updateSort(sort: string): void {
+    this.currentPageSubject.next(1);
     this.sortSubject.next(sort);
   }
 
   updatePagination(): void {
-    this.paginationSubject.next(this.paginationSubject.getValue() + 10);
+    if (
+      this.currentPageSubject.getValue() >= 1 &&
+      this.currentPageSubject.getValue() < this.totalPagesSubject.getValue()
+    ) {
+      this.currentPageSubject.next(this.currentPageSubject.getValue() + 1);
+    }
+  }
+
+  updatePaginationTotal(amount: number): void {
+    this.totalPagesSubject.next(amount);
   }
 
   refreshQuery(): void {
     this.refreshSubject.next();
+  }
+
+  getPaginationStatus() {
+    return of(!(this.totalPagesSubject.getValue() - this.currentPageSubject.getValue()))
   }
 }

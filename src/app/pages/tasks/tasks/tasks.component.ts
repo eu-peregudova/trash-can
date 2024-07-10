@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subject, delay, switchMap } from 'rxjs';
+import { Observable, delay, switchMap } from 'rxjs';
 
 import { QueryService } from '../../../common/services/query.service';
 import { TaskService } from '../../../common/services/task.service';
@@ -14,6 +14,11 @@ import { Task } from '../../../models/task.model';
 export class TasksComponent implements OnInit {
   tasks$!: Observable<Task[]>;
   combinedQuery$ = this.queryService.combined$;
+  currentPage$ = this.queryService.currentPage$;
+  loading = false;
+  cardView = true;
+
+  isNextAvailable = this.queryService.getPaginationStatus();
 
   constructor(
     private taskService: TaskService,
@@ -25,7 +30,7 @@ export class TasksComponent implements OnInit {
     this.tasks$ = this.combinedQuery$.pipe(
       delay(500),
       switchMap(([refresh, ...rest]) => {
-        return this.taskService.getTasks(...rest);
+        return this.taskService.getTasks(...rest)
       })
     )
   }
@@ -40,5 +45,14 @@ export class TasksComponent implements OnInit {
 
   onAddTask(): void {
     this.router.navigate(['/editor']);
+  }
+
+  onViewChange(): void {
+    this.cardView = !this.cardView;
+  }
+
+  onLoadMore(): void {
+    this.queryService.updatePagination();
+    this.queryService.refreshQuery()
   }
 }

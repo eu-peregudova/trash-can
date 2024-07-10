@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 
-import { Task } from '../../../../models/task.model';
+import { Task, TaskStatus } from '../../../../models/task.model';
 import { TaskService } from '../../../services/task.service';
 import { TaskViewComponent } from '../task-view/task-view.component';
 
@@ -23,8 +23,8 @@ export class TaskCardComponent {
     private router: Router
   ) {}
 
-  resolveEvent(): void {
-    this.task.resolveTask();
+  resolveEvent(status: TaskStatus.Resolved | TaskStatus.Rejected): void {
+    this.task.resolveTask(status);
     this.taskService
       .updateTask(this.task.taskId, this.task)
       .pipe(takeUntil(this.ngUnsubscribe$))

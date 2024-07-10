@@ -1,6 +1,12 @@
 <section class="tc-tasks-page-main">
   <tc-query-bar class="tc-tasks-query"></tc-query-bar>
-  <div class="tc-tasks-container">
+  <div class="tc-button-container-view">
+    <button class="tc-tasks-change-view-bt" (click)="onViewChange()">
+      <img *ngIf="cardView" src="../../../../assets/icons/table-icon.svg">
+      <img *ngIf="!cardView" src="../../../../assets/icons/cards-icon.svg">
+    </button>
+  </div>
+  <div class="tc-tasks-container" *ngIf="cardView">
     <tc-task-card
       class="tc-task"
       *ngFor="let task of tasks$ | async; trackBy: trackByTaskId"
@@ -8,9 +14,17 @@
       (resolve)="onTaskResolved()"
     ></tc-task-card>
   </div>
+  <tc-table [tasks]="tasks$ | async" *ngIf="!cardView" (resolve)="onTaskResolved()">
+ 
+  </tc-table>
   <div class="tc-button-container">
     <button class="tc-tasks-add-new-bt" (click)="onAddTask()">
       + Add new task
+    </button>
+  </div>
+  <div class="tc-button-load-more-container">
+    <button [disabled]="!(isNextAvailable | async)" (click)="onLoadMore()" class="tc-button-load-more">
+      Load more
     </button>
   </div>
 </section>
