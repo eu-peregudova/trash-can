@@ -8,6 +8,7 @@ import { AssistantComponent } from './assistant.component';
 import { FastPromptComponent } from './fast-prompt/fast-prompt.component';
 import { AssistantRequestedDirective } from '../../common/directives/assistant-requested.directive';
 import { ShowAssistantDirective } from '../../common/directives/show-assistant.directive';
+import { AssistantService } from './service/assistant.service';
 
 const routes: Routes = [
   {
@@ -19,5 +20,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [AssistantComponent, FastPromptComponent],
   imports: [CommonModule, RouterModule.forChild(routes), FormsModule, TaskCardForChatComponent, ShowAssistantDirective, AssistantRequestedDirective],
+  providers: [AssistantService]
 })
 export class AssistantModule {}

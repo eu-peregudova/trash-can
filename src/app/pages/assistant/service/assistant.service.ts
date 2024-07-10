@@ -2,12 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { environment } from '../../../environments/enviroment';
-import { Message } from '../../models/message.model';
+import { environment } from '../../../../environments/enviroment';
+import { Message } from '../../../models/message.model';
 
-@Injectable({
-  providedIn: 'root',
-})
+
+
+@Injectable()
 export class AssistantService {
   private apiUrl = `${environment.apiBaseUrl}assistant`;
 

@@ -1,11 +1,11 @@
 import { AfterViewChecked, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { Observable, Subject, takeUntil } from 'rxjs';
 
-import { AssistantService } from '../../common/services/assistant.service';
 import { MessageService } from '../../common/services/message.service';
 import { Message, ParsedMessage } from '../../models/message.model';
 import { UserService } from '../../common/services/user.service';
 import { UserRole } from '../../models/user-role.model';
+import { AssistantService } from './service/assistant.service';
 
 @Component({
   selector: 'tc-assistant',
