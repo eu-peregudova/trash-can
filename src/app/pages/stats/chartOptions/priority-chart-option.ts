@@ -1,6 +1,11 @@
 import { EChartsOption } from 'echarts';
 
 export const priorityChartOption: EChartsOption = {
+  toolbox: {
+    feature: {
+      saveAsImage: { show: true, name: 'Done by priority' }
+    }
+  },
   tooltip: {
     show: true,
     trigger: 'item',

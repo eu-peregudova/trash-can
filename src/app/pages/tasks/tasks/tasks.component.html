@@ -15,6 +15,7 @@
     ></tc-task-card>
   </div>
   <tc-table
+    class="tc-tasks-table"
     [tasks]="tasks$ | async"
     *ngIf="!cardView"
     (resolve)="onTaskResolved()"
@@ -25,9 +26,8 @@
       + Add new task
     </button>
   </div>
-  <div class="tc-button-load-more-container">
+  <div class="tc-button-load-more-container" *ngIf="(loadMoreShow$ | async)">
     <button
-      [disabled]="(isNextAvailable | async) === false"
       (click)="onLoadMore()"
       class="tc-button-load-more"
     >

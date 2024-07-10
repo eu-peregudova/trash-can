@@ -1,6 +1,11 @@
 import { EChartsOption } from 'echarts';
 
 export const statusChartOption: EChartsOption = {
+  toolbox: {
+    feature: {
+      saveAsImage: { show: true, name: 'All tasks by status' }
+    }
+  },
   tooltip: {
     show: true,
     trigger: 'item',
