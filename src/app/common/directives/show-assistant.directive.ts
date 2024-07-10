@@ -4,7 +4,8 @@ import { Subject, takeUntil } from 'rxjs';
 import { UserRole } from '../../models/user-role.model';
 
 @Directive({
-  selector: '[tcShowAssistant]', standalone: true,
+  selector: '[tcShowAssistant]',
+  standalone: true,
 })
 export class ShowAssistantDirective {
   private _userRole: UserRole;
@@ -23,11 +24,10 @@ export class ShowAssistantDirective {
   }
 
   private updateView(): void {
-      if (this._userRole === UserRole.Premium || this._userRole === UserRole.Mega) {
-        this.viewContainer.createEmbeddedView(this.templateRef);
-      } else {
-        this.viewContainer.clear();
-      }
-      this.cdRef.markForCheck();
+    this.viewContainer.clear();
+    if (this._userRole === UserRole.Premium || this._userRole === UserRole.Mega) {
+      this.viewContainer.createEmbeddedView(this.templateRef);
+    }
+    this.cdRef.markForCheck();
   }
 }

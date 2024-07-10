@@ -4,7 +4,8 @@ import { Subject, takeUntil } from 'rxjs';
 import { UserRole } from '../../models/user-role.model';
 
 @Directive({
-  selector: '[tcAssistantRequested]', standalone: true,
+  selector: '[tcAssistantRequested]',
+  standalone: true,
 })
 export class AssistantRequestedDirective {
   private _userRole: UserRole;
@@ -17,17 +18,16 @@ export class AssistantRequestedDirective {
   constructor(
     private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef,
-    private cdRef: ChangeDetectorRef,
+    private cdRef: ChangeDetectorRef
   ) {
     this.updateView();
   }
 
   private updateView(): void {
-      if (this._userRole === UserRole.Requested) {
-        this.viewContainer.createEmbeddedView(this.templateRef);
-      } else {
-        this.viewContainer.clear();
-      }
-      this.cdRef.markForCheck();
+    this.viewContainer.clear();
+    if (this._userRole === UserRole.Requested) {
+      this.viewContainer.createEmbeddedView(this.templateRef);
+    }
+    this.cdRef.markForCheck();
   }
 }

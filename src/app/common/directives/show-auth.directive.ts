@@ -22,11 +22,10 @@ export class ShowAuthDirective {
   }
 
   private updateView(): void {
-      if (this._userRole && this._userRole !== UserRole.Guest) {
-        this.viewContainer.createEmbeddedView(this.templateRef);
-      } else {
-        this.viewContainer.clear();
-      }
-      this.cdRef.markForCheck();
+    this.viewContainer.clear();
+    if (this._userRole && this._userRole !== UserRole.Guest) {
+      this.viewContainer.createEmbeddedView(this.templateRef);
+    }
+    this.cdRef.markForCheck();
   }
 }
