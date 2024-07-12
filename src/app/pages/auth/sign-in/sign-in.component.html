@@ -3,34 +3,55 @@
     {{ error }}
   </div>
   <h1 class="tc-sign-in-title">Log in</h1>
-  <form [formGroup]="signInForm" (ngSubmit)="onSubmit()" class="tc-sign-in-form">
+  <form
+    [formGroup]="signInForm"
+    (ngSubmit)="onSubmit()"
+    class="tc-sign-in-form"
+  >
     <div class="tc-sign-in-input-wrap">
       <label class="tc-sign-in-label" for="email">Email</label>
-      <input class="tc-sign-in-input" type="email" formControlName="email" id="email" />
+      <input
+        class="tc-sign-in-input"
+        type="email"
+        formControlName="email"
+        id="email"
+      />
       <div
         class="tc-sign-in-error"
         *ngIf="
-        signInForm.get('email')?.invalid && signInForm.get('email')?.touched
-      "
+          signInForm.get('email')?.invalid && signInForm.get('email')?.touched
+        "
       >
         Please enter a valid email.
       </div>
     </div>
     <div class="tc-sign-in-input-wrap">
       <label class="tc-sign-in-label" for="password">Password</label>
-      <input class="tc-sign-in-input" type="password" formControlName="password" id="password" />
+      <input
+        class="tc-sign-in-input"
+        type="password"
+        formControlName="password"
+        id="password"
+      />
       <div
         class="tc-sign-in-error"
         *ngIf="
-        signInForm.get('password')?.invalid &&
-        signInForm.get('password')?.touched
-      "
+          signInForm.get('password')?.invalid &&
+          signInForm.get('password')?.touched
+        "
       >
         Password must be at least 6 characters long.
       </div>
     </div>
-    <button class="tc-sign-in-button" type="submit" [disabled]="!signInForm.valid">Continue</button>
-    <p class="tc-auth-switch">Don't have an account? <a [routerLink]="['/auth/sign-up']">Register</a></p>
+    <button
+      class="tc-sign-in-button"
+      type="submit"
+      [disabled]="!signInForm.valid"
+    >
+      Continue
+    </button>
+    <p class="tc-auth-switch">
+      Don't have an account? <a [routerLink]="['/auth/sign-up']">Register</a>
+    </p>
   </form>
-
 </div>

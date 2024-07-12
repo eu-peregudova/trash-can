@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, debounceTime, Observable, of } from 'rxjs';
+import { BehaviorSubject, combineLatest, debounceTime, Observable } from 'rxjs';
 
 import { SortOptionApiName } from '../../models/sort.model';
 import { TaskStatus } from '../../models/task.model';

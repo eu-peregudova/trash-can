@@ -5,8 +5,6 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/enviroment';
 import { Message } from '../../../models/message.model';
 
-
-
 @Injectable()
 export class AssistantService {
   private apiUrl = `${environment.apiBaseUrl}assistant`;

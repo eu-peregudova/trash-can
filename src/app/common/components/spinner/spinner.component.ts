@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { SpinnerService } from '../../services/spinner.service';
 import { Observable } from 'rxjs';
+
+import { SpinnerService } from '../../services/spinner.service';
 
 @Component({
   selector: 'tc-spinner',
   templateUrl: './spinner.component.html',
-  styleUrls: ['./spinner.component.scss']
+  styleUrls: ['./spinner.component.scss'],
 })
 export class SpinnerComponent {
   spinnerActive$: Observable<boolean>;

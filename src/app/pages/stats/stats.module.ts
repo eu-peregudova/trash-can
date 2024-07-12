@@ -1,13 +1,17 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
-import { StatsComponent } from './stats.component';
-import { NgxEchartsModule } from 'ngx-echarts';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import { NgxEchartsModule } from 'ngx-echarts';
 
-const routes: Routes = [{
-  path: '', component: StatsComponent,
-}];
+import { StatsComponent } from './stats.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: StatsComponent,
+  },
+];
 
 @NgModule({
   declarations: [StatsComponent],
@@ -22,5 +26,4 @@ const routes: Routes = [{
     ReactiveFormsModule,
   ],
 })
-export class StatsModule {
-}
+export class StatsModule {}

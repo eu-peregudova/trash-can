@@ -2,8 +2,8 @@ import { AfterViewChecked, Component, ElementRef, OnDestroy, ViewChild } from '@
 import { Observable, Subject, takeUntil } from 'rxjs';
 
 import { MessageService } from '../../common/services/message.service';
-import { Message, ParsedMessage } from '../../models/message.model';
 import { UserService } from '../../common/services/user.service';
+import { Message, ParsedMessage } from '../../models/message.model';
 import { UserRole } from '../../models/user-role.model';
 import { AssistantService } from './service/assistant.service';
 
@@ -18,7 +18,7 @@ export class AssistantComponent implements OnDestroy, AfterViewChecked {
 
   inputValue = '';
   messages: Observable<Message[]>;
-  
+
   userRole$: Observable<UserRole>;
 
   @ViewChild('inputMessage') inputMessage: ElementRef;
@@ -43,9 +43,7 @@ export class AssistantComponent implements OnDestroy, AfterViewChecked {
   }
 
   onRequestAccess(): void {
-    this.userService.requestAssistantAccess().pipe(
-      takeUntil(this.ngUnsubscribe$)
-    ).subscribe();
+    this.userService.requestAssistantAccess().pipe(takeUntil(this.ngUnsubscribe$)).subscribe();
   }
 
   trackByMessage(i: number): number {

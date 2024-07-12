@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+
 import { UserRole } from '../../models/user-role.model';
 
 @Directive({
@@ -14,7 +15,7 @@ export class ShowAuthDirective {
   }
 
   constructor(
-    private templateRef: TemplateRef<any>,
+    private templateRef: TemplateRef<unknown>,
     private viewContainer: ViewContainerRef,
     private cdRef: ChangeDetectorRef
   ) {

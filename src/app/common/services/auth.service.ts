@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, tap } from 'rxjs';
 
 import { environment } from '../../../environments/enviroment';
-import { UserService } from './user.service';
 import { UserRole } from '../../models/user-role.model';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private userService: UserService,
+    private userService: UserService
   ) {}
 
   signIn(credentials: { email: string; password: string }) {
@@ -31,12 +31,12 @@ export class AuthService {
       tap((response: { role: UserRole }) => {
         this.userService.updateUserRole(response.role);
       })
-    )
+    );
   }
 
   isAuthenticated(): Observable<boolean> {
-    return this.http.get<{ valid: boolean, role: UserRole }>(this.apiUrl + '/validate').pipe(
-      tap((response: { valid: boolean, role: UserRole }) => {
+    return this.http.get<{ valid: boolean; role: UserRole }>(this.apiUrl + '/validate').pipe(
+      tap((response: { valid: boolean; role: UserRole }) => {
         this.userService.updateUserRole(response.role);
       }),
       map((response) => {

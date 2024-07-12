@@ -54,7 +54,11 @@
       >
         Delete
       </button>
-      <button type="button" class="tc-editor-button tc-editor-button-cancel" (click)="onCancel()">
+      <button
+        type="button"
+        class="tc-editor-button tc-editor-button-cancel"
+        (click)="onCancel()"
+      >
         Cancel
       </button>
       <button
@@ -68,12 +72,22 @@
   </form>
   <div class="tc-editor-modal" *ngIf="showModal">
     <div class="tc-editor-dialog">
-      <p>
-        Are you sure you want to delete this task?
-      </p>
+      <p>Are you sure you want to delete this task?</p>
       <div class="tc-editor-dialog-buttons">
-        <button (click)="onConfirm(true)" class="tc-editor-button-dialog" type="button">Yes</button>
-        <button (click)="onConfirm(false)" class="tc-editor-button-dialog" type="button">No</button>
+        <button
+          (click)="onConfirm(true)"
+          class="tc-editor-button-dialog"
+          type="button"
+        >
+          Yes
+        </button>
+        <button
+          (click)="onConfirm(false)"
+          class="tc-editor-button-dialog"
+          type="button"
+        >
+          No
+        </button>
       </div>
     </div>
   </div>

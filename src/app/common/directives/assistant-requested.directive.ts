@@ -1,6 +1,5 @@
-import { ChangeDetectorRef, Directive, Input, OnDestroy, TemplateRef, ViewContainerRef } from '@angular/core';
-import { UserService } from '../services/user.service';
-import { Subject, takeUntil } from 'rxjs';
+import { ChangeDetectorRef, Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+
 import { UserRole } from '../../models/user-role.model';
 
 @Directive({
@@ -16,7 +15,7 @@ export class AssistantRequestedDirective {
   }
 
   constructor(
-    private templateRef: TemplateRef<any>,
+    private templateRef: TemplateRef<unknown>,
     private viewContainer: ViewContainerRef,
     private cdRef: ChangeDetectorRef
   ) {
