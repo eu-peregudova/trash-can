@@ -1,0 +1,22 @@
+<div class="tc-about-main">
+  <div>
+    <h1 class="tc-about-heading">
+      <span class="tc-about-accent">Free your mind</span> from nagging tasks
+      with Tasks TrashCan.
+    </h1>
+    <p>
+      Capture and manage those important to-dos you often forget when you have
+      free time.
+      <br />Stay
+      <span class="tc-about-accent">organized and stress-free</span> with
+      T-TrashCan!
+    </p>
+  </div>
+  <div class="tc-about-buttons" *ngIf="!isAuth">
+    <a [routerLink]="['/auth/sign-up']" class="tc-about-bt"> Register </a>
+    <a [routerLink]="['/auth/sign-in']" class="tc-about-bt"> Login </a>
+  </div>
+  <div class="tc-about-buttons" *ngIf="isAuth">
+    <a [routerLink]="['/tasks']" class="tc-about-bt"> Go to tasks </a>
+  </div>
+</div>

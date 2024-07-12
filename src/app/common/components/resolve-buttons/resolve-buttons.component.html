@@ -1,0 +1,26 @@
+<div class="tc-card-buttons">
+  <button
+    *ngIf="taskStatus === status.Created; else statusMarker"
+    [disabled]="taskStatus !== status.Created"
+    class="tc-bt-i-did-it tc-table-button"
+    (click)="resolve(status.Rejected)"
+  >
+    <img src="../../../../assets/icons/discart-little-icon.svg" />
+    Forget it
+  </button>
+  <button
+    *ngIf="taskStatus === status.Created"
+    [disabled]="taskStatus !== status.Created"
+    class="tc-bt-i-did-it"
+    (click)="resolve(status.Resolved)"
+  >
+    <img src="../../../../assets/icons/i-did-it-mark.svg" />
+    I did it
+  </button>
+
+  <ng-template #statusMarker>
+    <p class="tc-card-marker">
+      {{ taskStatus === status.Resolved ? 'Done' : 'Forgotten' }}
+    </p>
+  </ng-template>
+</div>

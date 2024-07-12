@@ -1,0 +1,15 @@
+<div class="tc-fast-track-wrap">
+  <p>What's your situation?</p>
+  <div class="tc-fast-track">
+    <button
+      *ngFor="let option of options"
+      class="tc-fast-button"
+      (click)="fastPrompt(option.prompt)"
+    >
+      {{ option.buttonName }}
+    </button>
+    <button class="tc-fast-button tc-fast-chat" (click)="typeYourself()">
+      Type yourself
+    </button>
+  </div>
+</div>

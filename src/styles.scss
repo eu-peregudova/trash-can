@@ -1,0 +1,50 @@
+@import './_colors.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+html {
+  font-size: 14px;
+}
+
+@media only screen and (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.tc-bt-i-did-it {
+  padding: 0.4rem 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  border: $dark-gray 1px solid;
+  border-radius: 0.5rem;
+  gap: 0.3rem;
+  color: inherit;
+}
+
+.tc-bt-i-did-it:hover,
+.tc-bt-i-did-it:focus,
+.tc-bt-i-did-it:active {
+  transition: ease-in 0.3s;
+  color: $primary-dark;
+  border-color: $primary-dark;
+  cursor: pointer;
+  background-color: $dark-gray-transparent;
+}
+
+.tc-bt-i-did-it:disabled {
+  cursor: not-allowed;
+  background: transparent;
+  border: $dark-gray 1px solid;
+  color: $dark-gray;
+  opacity: 50%;
+}

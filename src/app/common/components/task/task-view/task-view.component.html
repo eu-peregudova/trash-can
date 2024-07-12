@@ -1,0 +1,27 @@
+<div class="tc-card">
+  <div class="tc-card-edit">
+    <button
+      class="tc-card-edit-button"
+      (click)="editEvent()"
+      *ngIf="task.status === status.Created"
+    >
+      <img src="../../../../assets/icons/pajamas_pencil.svg" />
+    </button>
+  </div>
+  <p class="tc-card-text">
+    {{ task?.description }}
+  </p>
+  <div class="tc-card-priority">
+    <div
+      class="tc-card-priority-marker"
+      [tcPriorityColor]="task?.priority"
+    ></div>
+    <div class="tc-card-priority-text">{{ task?.priority }}</div>
+  </div>
+  <div class="tc-card-buttons">
+    <tc-resolve-buttons
+      [taskStatus]="task?.status"
+      (resolveEvent)="resolveEvent($event)"
+    ></tc-resolve-buttons>
+  </div>
+</div>

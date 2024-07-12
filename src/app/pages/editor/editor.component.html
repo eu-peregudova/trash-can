@@ -1,0 +1,94 @@
+<div class="tc-editor-page">
+  <form class="tc-editor-form" [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+    <div class="tc-editor-input-wrapper">
+      <label class="tc-form-title" for="description"
+        >What do you want to do?
+      </label>
+      <textarea
+        class="tc-editor-textarea"
+        type="text"
+        id="description"
+        formControlName="description"
+        placeholder="Buy shoes for running..."
+      ></textarea>
+    </div>
+    <div class="tc-editor-input-wrapper tc-editor-input-radio">
+      <label class="tc-form-title">Priority</label>
+      <div class="tc-editor-input-radio-options">
+        <ng-container *ngFor="let option of optionsPriority">
+          <input
+            type="radio"
+            formControlName="priority"
+            [value]="option"
+            id="{{ option }}"
+          />
+          <label
+            class="tag"
+            [class.selected]="isOptionSelected(option)"
+            [for]="option"
+          >
+            {{ option }}
+          </label>
+        </ng-container>
+      </div>
+    </div>
+    <div class="tc-editor-input-wrapper">
+      <label class="tc-form-title" for="expirationDate">Expiration date </label>
+      <p class="tc-form-descriptor">
+        On this date task will silently discard itself. Think about when it
+        would not matter anymore.
+      </p>
+      <input
+        type="date"
+        id="expirationDate"
+        formControlName="expirationDate"
+        placeholder="Date"
+      />
+    </div>
+    <div class="tc-editor-button-container">
+      <button
+        *ngIf="!isNew"
+        type="button"
+        class="tc-editor-button tc-editor-button-delete"
+        (click)="onDelete()"
+      >
+        Delete
+      </button>
+      <button
+        type="button"
+        class="tc-editor-button tc-editor-button-cancel"
+        (click)="onCancel()"
+      >
+        Cancel
+      </button>
+      <button
+        type="submit"
+        class="tc-editor-button tc-editor-button-submit tc-editor-button-update"
+        [disabled]="taskForm.invalid"
+      >
+        {{ isNew ? 'Add Task' : 'Update' }}
+      </button>
+    </div>
+  </form>
+  <div class="tc-editor-modal" *ngIf="showModal">
+    <div class="tc-editor-dialog">
+      <p>Are you sure you want to delete this task?</p>
+      <div class="tc-editor-dialog-buttons">
+        <button
+          (click)="onConfirm(true)"
+          class="tc-editor-button-dialog"
+          type="button"
+        >
+          Yes
+        </button>
+        <button
+          (click)="onConfirm(false)"
+          class="tc-editor-button-dialog"
+          type="button"
+        >
+          No
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

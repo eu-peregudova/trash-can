@@ -1,0 +1,75 @@
+@import 'src/_colors.scss';
+
+.tc-card {
+  box-shadow: 1px 4px 0.5rem 0px rgba(0, 0, 0, 0.25);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  color: $dark-gray;
+  min-width: 100%;
+  min-height: 8rem;
+
+  display: grid;
+  grid-template-columns: 2fr 3fr 1fr;
+  grid-template-rows: 2fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    'text text edit'
+    'priority buttons buttons';
+
+  .tc-card-edit {
+    grid-area: edit;
+    height: 100%;
+    justify-self: end;
+
+    .tc-card-edit-button {
+      border: none;
+      background-color: transparent;
+      padding: 0.5rem;
+      position: relative;
+      right: -0.5rem;
+      top: -0.5rem;
+    }
+
+    .tc-card-edit-button:hover {
+      cursor: pointer;
+      background-color: $background-off-light-d;
+      border-radius: 100%;
+      transition: ease-out 0.3s;
+    }
+  }
+
+  .tc-card-text {
+    grid-area: text;
+  }
+
+  .tc-card-priority {
+    grid-area: priority;
+    align-self: flex-end;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+
+    .tc-card-priority-marker {
+      border-radius: 100%;
+      height: 9px;
+      width: 9px;
+    }
+    
+    .tc-card-priority-text {
+      font-weight: 400;
+      padding-bottom: 0.1rem;
+    }
+  }
+}
+
+.tc-card-buttons {
+  grid-area: buttons;
+  justify-self: self-end;
+  align-self: self-end;
+}
+
+@media only screen and (min-width: 768px) {
+  .tc-card {
+    width: initial;
+  }
+}

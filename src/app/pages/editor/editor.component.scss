@@ -1,0 +1,254 @@
+@import 'src/_colors.scss';
+
+.tc-editor-page {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1rem;
+
+  .tc-editor-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+
+    .tc-editor-input-wrapper {
+      display: flex;
+      flex-direction: column;
+
+      .tc-form-title {
+        font-weight: 500;
+        padding: 0.5rem 0;
+        font-size: 1.1rem;
+      }
+
+      .tc-form-descriptor {
+        font-weight: 300;
+        line-height: 150%;
+        color: $dark-gray;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+
+      > input {
+        padding: 0.4rem;
+        color: $dark-gray;
+        font-weight: 400;
+      }
+
+      .tc-editor-textarea {
+        height: 7rem;
+        padding: 0.5rem;
+        resize: none;
+      }
+
+      .tc-editor-textarea::placeholder {
+        color: $dark-gray;
+        font-weight: 400;
+      }
+
+      .tc-editor-textarea,
+      input {
+        border: 1px solid $light-gray;
+        border-radius: 0.5rem;
+      }
+    }
+  }
+
+  @media only screen and (min-width: 768px) {
+    .tc-editor-form {
+      max-width: 30rem;
+      border: $light-gray 1px solid;
+      border-radius: 1rem;
+      padding: 4rem 5rem 2rem 5rem;
+      min-width: 700px;
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .tc-editor-page {
+    justify-content: center;
+    height: 90vh;
+    padding: initial;
+  }
+}
+
+.tc-editor-input-radio {
+  .tc-editor-input-radio-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  @media only screen and (min-width: 768px) {
+    .tc-editor-input-radio-options {
+      flex-direction: row;
+    }
+  }
+
+  .tag {
+    border-radius: 0.5rem;
+    border: $light-gray 1px solid;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $dark-gray;
+    font-weight: 400;
+    font-size: 0.9rem;
+    padding: 0.5rem 0;
+    text-align: center;
+    flex-grow: 1;
+  }
+
+  .tag.selected {
+    background-color: $primary-dark;
+    color: $primary-light;
+  }
+
+  input[type='radio'] {
+    display: none;
+  }
+
+  .tc-editor-input-radio {
+    display: flex;
+    gap: 0.3rem;
+  }
+}
+
+.tc-editor-button-container {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'delete .'
+    'cancel update';
+  gap: 1rem;
+  margin-top: 1rem;
+
+  .tc-editor-button {
+    background-color: $light-gray;
+    border-radius: 0.5rem;
+    border: none;
+    padding: 0.8rem 3rem;
+    font-weight: 500;
+    font-size: 1.1rem;
+  }
+
+  .tc-editor-button-delete {
+    border: 1px solid #ee0000;
+    color: #ee0000;
+    background-color: transparent;
+    grid-area: delete;
+  }
+
+  .tc-editor-button-cancel {
+    grid-area: cancel;
+  }
+
+  .tc-editor-button-update {
+    grid-area: update;
+  }
+
+  .tc-editor-button-submit {
+    background-color: $primary-dark;
+    color: $primary-light;
+  }
+
+  .tc-editor-button:hover {
+    cursor: pointer;
+  }
+
+  .tc-editor-button-submit:disabled {
+    cursor: not-allowed;
+    background-color: $dark-gray;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .tc-editor-button-container {
+    grid-template-columns: auto 1fr 1fr 1fr;
+    grid-template-areas: 'update cancel . delete';
+    gap: 1rem;
+  }
+
+  .tc-editor-button-delete {
+    border: 1px solid #ee0000;
+    color: #ee0000;
+    background-color: transparent;
+    grid-area: delete;
+  }
+}
+
+.tc-editor-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 80vh;
+  z-index: 100;
+  background-color: #ffffffaa;
+}
+
+.tc-editor-dialog {
+  padding: 2rem 5rem;
+  background-color: $primary-light;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 4px 1px 15px 0px rgba(166,166,166,1);
+
+  p {
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-align: center;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .tc-editor-modal {
+    width: 90vw;
+    height: 90vh;
+    position: absolute;
+    top: initial;
+    left: initial;
+  }
+
+  .tc-editor-dialog {
+    padding: 2rem 5rem;
+  }
+}
+
+.tc-editor-dialog-buttons {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+  justify-content: space-between;
+
+  .tc-editor-button-dialog {
+    border-radius: 0.5rem;
+    background-color: $primary-light;
+    border: $primary-dark 1px solid;
+    padding: 0.8rem 3rem;
+    font-weight: 500;
+    font-size: 1.1rem;
+  }
+
+  .tc-editor-button-dialog:hover {
+    background-color: $primary-dark;
+    color: $primary-light;
+    transition: 0.3s ease-in;
+    cursor: pointer;
+  }
+}
+

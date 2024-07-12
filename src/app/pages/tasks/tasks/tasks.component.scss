@@ -1,0 +1,147 @@
+@import 'src/_colors.scss';
+
+.tc-tasks-page-main {
+  margin-bottom: 15rem;
+}
+
+.tc-tasks-container {
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-flow: wrap;
+  width: 100%;
+  gap: 1rem;
+
+  .tc-task {
+    flex-grow: 1;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .tc-tasks-container {
+    .tc-task {
+      max-width: 50%;
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .tc-tasks-container {
+    padding: 0.5rem 5rem;
+    flex-direction: row;
+    order: 2;
+  }
+
+  .tc-tasks-query {
+    order: 5;
+  }
+}
+
+.tc-button-container {
+  padding: 0 1rem;
+  width: 100%;
+  position: fixed;
+  bottom: 4.5rem;
+
+  .tc-tasks-add-new-bt {
+    width: 100%;
+    background-color: $background-off-light-e;
+    border: none;
+    padding: 1.2rem 0;
+    border-radius: 0.5rem;
+    z-index: 10;
+  }
+
+  .tc-tasks-add-new-bt:hover {
+    background-color: $light-gray-hover;
+    transition: ease-in 0.3s;
+    cursor: pointer;
+  }
+}
+
+.tc-button-container-view {
+  order: 1;
+  padding: 0 1.7rem;
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  position: relative;
+
+  .tc-tasks-change-view-bt {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      height: 1.5rem;
+    }
+  }
+
+  .tc-tasks-change-view-bt:hover {
+    background-color: $light-gray-hover;
+    cursor: pointer;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .tc-tasks-page-main {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .tc-button-container {
+    padding: 0.5rem 5rem;
+    position: inherit;
+    order: 3;
+  }
+
+  .tc-button-container-view {
+    order: 4;
+    padding: 0.5rem 5rem;
+  }
+}
+
+.tc-button-load-more-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tc-button-load-more {
+  border: none;
+  background-color: $primary-light;
+  border: 1px $primary-dark solid;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem 3rem; 
+}
+
+.tc-button-load-more:hover {
+  cursor: pointer;
+  background-color: $primary-dark;
+  color: $primary-light;
+}
+
+@media only screen and (min-width: 768px) {
+  .tc-button-load-more-container {
+    order: 1;
+  }
+
+  .tc-tasks-table {
+    order: 2
+  }
+}
+
+.tc-tasks-no-data {
+  width: 100%;
+  padding: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 300;
+  font-size: 0.8rem;
+}

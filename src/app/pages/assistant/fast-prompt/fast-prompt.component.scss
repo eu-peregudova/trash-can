@@ -1,0 +1,66 @@
+@import 'src/_colors.scss';
+
+.tc-fast-track-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  flex-grow: 1;
+  gap: 1rem;
+}
+
+.tc-fast-track {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  .tc-fast-button {
+    padding: 0.6rem 2rem;
+    border: $primary-dark 1px solid;
+    border-radius: 0.7rem;
+    font-weight: 600;
+    background-color: $primary-light;
+  }
+
+  .tc-fast-chat {
+    background-color: $background-off-light-e;
+    color: $primary-dark;
+    border: none;
+    font-weight: 500;
+  }
+
+  .tc-fast-button:hover {
+    background-color: $primary-dark;
+    color: $primary-light;
+    transition: ease-in 0.3s;
+    cursor: pointer;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .tc-fast-track-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .tc-fast-track {
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .tc-fast-button {
+      flex-grow: 1;
+      min-width: 15rem;
+      min-height: 5rem;
+      font-size: 1rem;
+      flex-shrink: 1;
+    }
+
+    .tc-fast-chat {
+      display: none;
+    }
+  }
+}
