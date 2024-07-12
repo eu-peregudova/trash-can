@@ -1,4 +1,7 @@
 <div class="tc-sign-in-container">
+  <div class="tc-sign-in-error" *ngIf="error">
+    {{ error }}
+  </div>
   <h1 class="tc-sign-in-title">Log in</h1>
   <form [formGroup]="signInForm" (ngSubmit)="onSubmit()" class="tc-sign-in-form">
     <div class="tc-sign-in-input-wrap">

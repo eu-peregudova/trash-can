@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../common/services/auth.service';
 import { UserRole } from '../../../models/user-role.model';
 import { catchError } from 'rxjs';
+import { SpinnerService } from '../../../common/services/spinner.service';
 
 @Component({
   selector: 'tc-sign-in',
@@ -13,11 +14,13 @@ import { catchError } from 'rxjs';
 })
 export class SignInComponent {
   signInForm: FormGroup;
+  error: string = null;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private spinnerService: SpinnerService,
   ) {
     this.signInForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -27,10 +30,17 @@ export class SignInComponent {
 
   onSubmit(): void {
     if (this.signInForm.valid) {
+      this.spinnerService.showSpinner()
       this.authService.signIn(this.signInForm.value).subscribe({
         next: (data: { role: UserRole; token: string }) => {
           localStorage.setItem('userToken', data.token);
-          this.router.navigate(['/tasks']);
+          try {
+            this.router.navigate(['/tasks']);
+            this.spinnerService.hideSpinner();
+          } catch {
+            this.error = "Something went wrong, try again";
+            this.spinnerService.hideSpinner();
+          }
         },
         error: (error) => console.log(error),
       });
