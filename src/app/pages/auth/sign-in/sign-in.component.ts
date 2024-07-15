@@ -41,7 +41,11 @@ export class SignInComponent {
             this.spinnerService.hideSpinner();
           }
         },
-        error: (error) => console.log(error),
+        error: (error) => {
+          this.error = 'Something went wrong, try again';
+          this.spinnerService.hideSpinner();
+          console.log(error);
+        },
       });
     } else {
       console.log('Form is not valid');

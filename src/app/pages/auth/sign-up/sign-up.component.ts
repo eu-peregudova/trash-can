@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../../common/services/auth.service';
+import { SpinnerService } from '../../../common/services/spinner.service';
 import { UserRole } from '../../../models/user-role.model';
 
 @Component({
@@ -12,11 +13,13 @@ import { UserRole } from '../../../models/user-role.model';
 })
 export class SignUpComponent {
   signUpForm: FormGroup;
+  error: string = null;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private spinnerService: SpinnerService
   ) {
     this.signUpForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
@@ -37,10 +40,20 @@ export class SignUpComponent {
 
   onSubmit(): void {
     if (this.signUpForm.valid) {
-      const { repeatPassword, ...values } = this.signUpForm.value;
-      this.authService.signUp(values).subscribe((data: { role: UserRole; token: string }) => {
-        localStorage.setItem('userToken', data.token);
-        this.router.navigate(['/tasks']);
+      this.spinnerService.showSpinner();
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { _repeatPassword, ...values } = this.signUpForm.value;
+      this.authService.signUp(values).subscribe({
+        next: (data: { role: UserRole; token: string }) => {
+          localStorage.setItem('userToken', data.token);
+          this.router.navigate(['/tasks']);
+          this.spinnerService.hideSpinner();
+        },
+        error: (error) => {
+          this.error = 'Something went wrong, try again';
+          this.spinnerService.hideSpinner();
+          console.log(error);
+        },
       });
     } else {
       console.log('Form is not valid');

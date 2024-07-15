@@ -14,6 +14,18 @@
     text-align: center;
   }
 
+  .tc-sign-in-error-plaque {
+    position: fixed;
+    top: 5rem;
+    border: 1px red solid;
+    border-radius: 0.5rem;
+    padding: 1rem 5rem;
+    color: red;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+
   .tc-sign-up-form {
     width: 90%;
     display: flex;

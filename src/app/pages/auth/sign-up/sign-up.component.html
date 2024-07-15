@@ -1,4 +1,7 @@
 <div class="tc-sign-up-container">
+  <div class="tc-sign-in-error-plaque" *ngIf="error">
+    {{ error }}
+  </div>
   <h1 class="tc-sign-up-title">Fill in the form to register</h1>
   <form
     (ngSubmit)="onSubmit()"
