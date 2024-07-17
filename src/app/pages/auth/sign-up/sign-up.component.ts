@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../../../common/services/auth.service';
 import { SpinnerService } from '../../../common/services/spinner.service';
-import { UserRole } from '../../../models/user-role.model';
 
 @Component({
   selector: 'tc-sign-up',
@@ -44,8 +43,7 @@ export class SignUpComponent {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { _repeatPassword, ...values } = this.signUpForm.value;
       this.authService.signUp(values).subscribe({
-        next: (data: { role: UserRole; token: string }) => {
-          localStorage.setItem('userToken', data.token);
+        next: () => {
           this.router.navigate(['/tasks']);
           this.spinnerService.hideSpinner();
         },
