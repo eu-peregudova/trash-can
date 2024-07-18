@@ -1,11 +1,11 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
+import { connectFirestoreEmulator, getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterLink, RouterModule } from '@angular/router';
-import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { provideAuth, getAuth } from '@angular/fire/auth';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
@@ -23,8 +23,24 @@ import { SpinnerComponent } from './common/components/spinner/spinner.component'
     NavigationComponent,
     HttpClientModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => getFirestore()),
-    provideAuth(() => getAuth()),
+    provideFirestore(() => {
+      const firestore = getFirestore();
+
+      if (environment.useEmulators) {
+        connectFirestoreEmulator(firestore, environment.emulators.baseUrl, environment.emulators.firestorePort);
+      }
+
+      return firestore;
+    }),
+    provideAuth(() => {
+      const auth = getAuth();
+
+      if (environment.useEmulators) {
+        connectAuthEmulator(auth, `http://${environment.emulators.baseUrl}:${environment.emulators.authPort}`);
+      }
+
+      return auth;
+    }),
   ],
   providers: [RouterLink],
   bootstrap: [AppComponent],
