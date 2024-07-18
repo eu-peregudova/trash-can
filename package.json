@@ -10,6 +10,7 @@
     "lint": "ng lint",
     "emulators:start": "firebase emulators:start --import=fixtures",
     "emulators:write-fixtures": "firebase emulators:start --import=fixtures --export-on-exit",
+    "dev": "concurrently \"npm run watch\" \"npm run emulators:start\""
   },
   "private": true,
   "dependencies": {
@@ -44,6 +45,7 @@
     "@types/jasmine": "~4.3.0",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
+    "concurrently": "^8.2.2",
     "eslint": "^8.33.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
