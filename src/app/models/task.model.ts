@@ -12,12 +12,16 @@ export enum TaskStatus {
 
 export class Task {
   public taskId: string;
-  public description: string;
+  public description: string = '';
   public creationDate: string;
-  public status: TaskStatus;
-  public updateDate: string;
-  public priority: TaskPriority;
-  public expirationDate: string;
+  public status: TaskStatus = TaskStatus.Created;
+  public updateDate: string = '';
+  public priority: TaskPriority = TaskPriority.MaybeNever;
+  public expirationDate: string = '';
+
+  constructor() {
+    this.creationDate = new Date().toISOString();
+  }
 
   resolveTask(status: Exclude<TaskStatus, TaskStatus.Created>): void {
     this.status = status;

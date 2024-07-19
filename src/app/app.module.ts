@@ -1,17 +1,13 @@
-import {
-  HTTP_INTERCEPTORS,
-  HttpClientModule,
-  HttpEvent,
-  HttpHandler,
-  HttpInterceptor,
-  HttpRequest,
-} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
+import { connectFirestoreEmulator, getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterLink, RouterModule } from '@angular/router';
-import { Observable } from 'rxjs';
 
+import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NavigationComponent } from './common/components/navigation/navigation.component';
@@ -26,24 +22,27 @@ import { SpinnerComponent } from './common/components/spinner/spinner.component'
     RouterModule,
     NavigationComponent,
     HttpClientModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => {
+      const firestore = getFirestore();
+
+      if (environment.useEmulators) {
+        connectFirestoreEmulator(firestore, environment.emulators.baseUrl, environment.emulators.firestorePort);
+      }
+
+      return firestore;
+    }),
+    provideAuth(() => {
+      const auth = getAuth();
+
+      if (environment.useEmulators) {
+        connectAuthEmulator(auth, `http://${environment.emulators.baseUrl}:${environment.emulators.authPort}`);
+      }
+
+      return auth;
+    }),
   ],
-  providers: [
-    RouterLink,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useFactory: (): HttpInterceptor => ({
-        intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-          const clonedRequest = req.clone({
-            setHeaders: {
-              'Authorization': `Bearer ${localStorage.getItem('userToken')}`,
-            },
-          });
-          return next.handle(clonedRequest);
-        },
-      }),
-      multi: true,
-    },
-  ],
+  providers: [RouterLink],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

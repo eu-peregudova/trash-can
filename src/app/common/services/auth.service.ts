@@ -1,8 +1,16 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of, tap } from 'rxjs';
+import {
+  Auth,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+  User as AuthUser,
+} from '@angular/fire/auth';
+import { doc, Firestore, setDoc } from '@angular/fire/firestore';
+import { BehaviorSubject, from, Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
-import { environment } from '../../../environments/enviroment';
 import { UserRole } from '../../models/user-role.model';
 import { UserService } from './user.service';
 
@@ -10,49 +18,49 @@ import { UserService } from './user.service';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = `${environment.apiBaseUrl}auth`;
+  authUserSubject = new BehaviorSubject<AuthUser | null>(null);
+  authUser$ = this.authUserSubject.asObservable();
 
   constructor(
-    private http: HttpClient,
-    private userService: UserService
-  ) {}
+    private firestore: Firestore,
+    private userService: UserService,
+    private auth: Auth
+  ) {
+    onAuthStateChanged(this.auth, (user) => {
+      this.authUserSubject.next(user);
+      if (user) {
+      } else {
+        this.userService.updateUserRole(UserRole.Guest);
+      }
+    });
+  }
 
-  signIn(credentials: { email: string; password: string }) {
-    this.userService;
-    return this.http.post(this.apiUrl + '/signin', credentials).pipe(
-      tap((response: { role: UserRole }) => {
-        this.userService.updateUserRole(response.role);
-      })
+  signIn(credentials: { email: string; password: string }): Observable<void> {
+    return from(signInWithEmailAndPassword(this.auth, credentials.email, credentials.password)).pipe(
+      switchMap(() => of(undefined))
     );
   }
 
-  signUp(userInfo) {
-    return this.http.post(this.apiUrl + '/signup', userInfo).pipe(
-      tap((response: { role: UserRole }) => {
-        this.userService.updateUserRole(response.role);
+  signUp(credentials: { name: string; email: string; password: string }) {
+    return from(createUserWithEmailAndPassword(this.auth, credentials.email, credentials.password)).pipe(
+      switchMap((credential) => {
+        const uid = credential.user.uid;
+        return from(
+          setDoc(doc(this.firestore, `users/${uid}`), {
+            uid,
+            name: credentials.name,
+            role: UserRole.Registered,
+          })
+        );
       })
     );
   }
 
   isAuthenticated(): Observable<boolean> {
-    return this.http.get<{ valid: boolean; role: UserRole }>(this.apiUrl + '/validate').pipe(
-      tap((response: { valid: boolean; role: UserRole }) => {
-        this.userService.updateUserRole(response.role);
-      }),
-      map((response) => {
-        console.log(response);
-        return response.valid;
-      }),
-      catchError((error) => {
-        console.error('Validation failed', error);
-        return of(false);
-      })
-    );
+    return this.authUser$.pipe(switchMap((user) => of(!!user)));
   }
 
-  signOut() {
-    localStorage.removeItem('userToken');
-    location.reload();
-    this.userService.updateUserRole(UserRole.Guest);
+  signOut(): Observable<void> {
+    return from(signOut(this.auth)).pipe(switchMap(() => of(undefined)));
   }
 }

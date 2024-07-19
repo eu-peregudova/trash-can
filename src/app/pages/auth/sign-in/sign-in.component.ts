@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../../../common/services/auth.service';
 import { SpinnerService } from '../../../common/services/spinner.service';
-import { UserRole } from '../../../models/user-role.model';
 
 @Component({
   selector: 'tc-sign-in',
@@ -31,15 +30,9 @@ export class SignInComponent {
     if (this.signInForm.valid) {
       this.spinnerService.showSpinner();
       this.authService.signIn(this.signInForm.value).subscribe({
-        next: (data: { role: UserRole; token: string }) => {
-          localStorage.setItem('userToken', data.token);
-          try {
-            this.router.navigate(['/tasks']);
-            this.spinnerService.hideSpinner();
-          } catch {
-            this.error = 'Something went wrong, try again';
-            this.spinnerService.hideSpinner();
-          }
+        next: () => {
+          this.router.navigate(['/tasks']);
+          this.spinnerService.hideSpinner();
         },
         error: (error) => {
           this.error = 'Something went wrong, try again';
